@@ -89,15 +89,6 @@
             </PendingDiffInfo>
           </value>
         </entry>
-        <entry key="$PROJECT_DIR$/src/main/java/com/example/projectend/controller/HomeController.java">
-          <value>
-            <PendingDiffInfo>
-              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/example/projectend/controller/HomeController.java" />
-              <option name="originalContent" value="package com.example.projectend.controller;&#10;&#10;import org.springframework.stereotype.Controller;&#10;import org.springframework.web.bind.annotation.GetMapping;&#10;&#10;@Controller&#10;public class HomeController {&#10;&#10;    @GetMapping(&quot;/home&quot;)&#10;    public String home() {&#10;        return &quot;home&quot;;&#10;    }&#10;&#10;}&#10;" />
-              <option name="updatedContent" value="package com.example.projectend.controller;&#10;&#10;import com.example.projectend.model.Product;&#10;import org.springframework.stereotype.Controller;&#10;import org.springframework.ui.Model;&#10;import org.springframework.web.bind.annotation.GetMapping;&#10;import java.util.Arrays;&#10;import java.util.List;&#10;&#10;@Controller&#10;public class HomeController {&#10;&#10;    @GetMapping(&quot;/&quot;)&#10;    public String index(Model model) {&#10;        // Tạo danh sách sản phẩm mẫu&#10;        List&lt;Product&gt; products = Arrays.asList(&#10;            new Product(1L, &quot;iPhone 15 Pro&quot;, &quot;iPhone 15 Pro 128GB - Titan Tự Nhiên&quot;, 29990000.0, &quot;/img/iphone15pro.jpg&quot;, 50),&#10;            new Product(2L, &quot;Samsung Galaxy S24&quot;, &quot;Samsung Galaxy S24 Ultra 256GB&quot;, 31990000.0, &quot;/img/galaxys24.jpg&quot;, 30),&#10;            new Product(3L, &quot;MacBook Air M2&quot;, &quot;MacBook Air M2 13 inch 256GB&quot;, 32990000.0, &quot;/img/macbookair.jpg&quot;, 20),&#10;            new Product(4L, &quot;iPad Pro&quot;, &quot;iPad Pro 11 inch M2 128GB WiFi&quot;, 22990000.0, &quot;/img/ipadpro.jpg&quot;, 25),&#10;            new Product(5L, &quot;AirPods Pro&quot;, &quot;Apple AirPods Pro (2nd generation)&quot;, 6990000.0, &quot;/img/airpodspro.jpg&quot;, 100),&#10;            new Product(6L, &quot;Samsung Buds2 Pro&quot;, &quot;Samsung Galaxy Buds2 Pro&quot;, 4990000.0, &quot;/img/buds2pro.jpg&quot;, 80)&#10;        );&#10;&#10;        model.addAttribute(&quot;products&quot;, products);&#10;        model.addAttribute(&quot;pageTitle&quot;, &quot;Trang chủ - Cửa hàng điện tử&quot;);&#10;        return &quot;home&quot;;&#10;    }&#10;&#10;    @GetMapping(&quot;/home&quot;)&#10;    public String home(Model model) {&#10;        return index(model); // Redirect về trang chủ&#10;    }&#10;}" />
-            </PendingDiffInfo>
-          </value>
-        </entry>
         <entry key="$PROJECT_DIR$/src/main/java/com/example/projectend/entity/CartItem.java">
           <value>
             <PendingDiffInfo>
