@@ -18,7 +18,7 @@ public class SecurityConfig {
             )
             .csrf(csrf -> csrf.disable()) // Tắt CSRF cho development
             .headers(headers -> headers.frameOptions().disable()); // Cho phép H2 console
-
+        
         return http.build();
     }
 }
