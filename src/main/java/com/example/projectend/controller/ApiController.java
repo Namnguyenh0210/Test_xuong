@@ -1,143 +1,182 @@
 package com.example.projectend.controller;
 
-import com.example.projectend.entity.SanPham;
-import com.example.projectend.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
- * REST API CONTROLLER - Chuẩn thực tế công ty
- * Pattern: Tách riêng API endpoints cho AJAX calls
- * Đây là cách 90% công ty VN đang làm
+ * API CONTROLLER - REST API endpoints
+ * Người 1 - Database Design & Backend Core (ĐÃ HOÀN THÀNH - Cấu trúc cơ bản)
+ * TODO: Người 2,3,4,5 - Phát triển các API endpoints theo chuyên môn
  */
 @RestController
 @RequestMapping("/api")
 public class ApiController {
 
-    @Autowired
-    private ProductService productService;
+    // ========================================
+    // TODO: NGƯỜI 2 - Authentication & Authorization APIs
+    // ========================================
 
-    // ===== CART API (Chuẩn thực tế) =====
+    // TODO: NGƯỜI 2 - API đăng nhập (plain text password)
+    // @PostMapping("/login")
+    // public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
+    //     // Xác thực email + mật khẩu plain text
+    //     // Tạo JWT token hoặc session
+    //     // Return user info + token
+    // }
 
-    @PostMapping("/cart/add")
-    public ResponseEntity<Map<String, Object>> addToCart(
-            @RequestParam Integer productId,
-            @RequestParam Integer quantity) {
+    // TODO: NGƯỜI 2 - API đăng ký tài khoản mới
+    // @PostMapping("/register")
+    // public ResponseEntity<?> register(@RequestBody RegisterRequest registerRequest) {
+    //     // Validate dữ liệu đăng ký
+    //     // Kiểm tra email đã tồn tại chưa
+    //     // Lưu mật khẩu plain text vào database
+    //     // Set vai trò mặc định là "Khách hàng"
+    // }
 
-        Map<String, Object> response = new HashMap<>();
+    // TODO: NGƯỜI 2 - API refresh token
+    // @PostMapping("/refresh-token")
 
-        try {
-            // Business logic
-            cartService.addToCart(productId, quantity);
+    // TODO: NGƯỜI 2 - API đăng xuất
+    // @PostMapping("/logout")
 
-            // Response chuẩn công ty
-            response.put("success", true);
-            response.put("message", "Đã thêm vào giỏ hàng");
-            response.put("cartCount", cartService.getCartItemCount());
+    // ========================================
+    // TODO: NGƯỜI 3 - Frontend & Customer Website APIs
+    // ========================================
 
-            return ResponseEntity.ok(response);
+    // TODO: NGƯỜI 3 - API lấy danh sách sản phẩm (có filter, search, pagination)
+    // @GetMapping("/products")
+    // public ResponseEntity<Page<SanPham>> getProducts(
+    //         @RequestParam(defaultValue = "0") int page,
+    //         @RequestParam(defaultValue = "12") int size,
+    //         @RequestParam(required = false) Integer categoryId,
+    //         @RequestParam(required = false) String keyword,
+    //         @RequestParam(required = false) BigDecimal minPrice,
+    //         @RequestParam(required = false) BigDecimal maxPrice) {
+    //     // Logic tìm kiếm và lọc sản phẩm
+    // }
 
-        } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", "Có lỗi xảy ra: " + e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
+    // TODO: NGƯỜI 3 - API chi tiết sản phẩm
+    // @GetMapping("/products/{id}")
+    // public ResponseEntity<SanPham> getProductById(@PathVariable Integer id) {
+    //     // Lấy thông tin chi tiết sản phẩm
+    //     // Tăng lượt xem
+    // }
 
-    @DeleteMapping("/cart/remove/{itemId}")
-    public ResponseEntity<Map<String, Object>> removeFromCart(@PathVariable Integer itemId) {
-        Map<String, Object> response = new HashMap<>();
+    // TODO: NGƯỜI 3 - API lấy danh mục sản phẩm
+    // @GetMapping("/categories")
+    // public ResponseEntity<List<LoaiSanPham>> getCategories() {
+    //     // Lấy tất cả danh mục để hiển thị menu
+    // }
 
-        try {
-            cartService.removeFromCart(itemId);
+    // TODO: NGƯỜI 3 - API giỏ hàng - Lấy giỏ hàng
+    // @GetMapping("/cart")
+    // public ResponseEntity<List<GioHang>> getCart() {
+    //     // Lấy giỏ hàng của user hiện tại
+    // }
 
-            response.put("success", true);
-            response.put("cartCount", cartService.getCartItemCount());
-            response.put("newTotal", cartService.getCartTotal());
+    // TODO: NGƯỜI 3 - API giỏ hàng - Thêm sản phẩm
+    // @PostMapping("/cart/add")
+    // public ResponseEntity<?> addToCart(@RequestBody AddToCartRequest request) {
+    //     // Thêm sản phẩm vào giỏ hàng
+    //     // Kiểm tra số lượng tồn kho
+    // }
 
-            return ResponseEntity.ok(response);
+    // TODO: NGƯỜI 3 - API giỏ hàng - Cập nhật số lượng
+    // @PutMapping("/cart/update")
+    // public ResponseEntity<?> updateCart(@RequestBody UpdateCartRequest request) {
+    //     // Cập nhật số lượng sản phẩm trong giỏ
+    // }
 
-        } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
+    // TODO: NGƯỜI 3 - API giỏ hàng - Xóa sản phẩm
+    // @DeleteMapping("/cart/remove/{itemId}")
+    // public ResponseEntity<?> removeFromCart(@PathVariable Integer itemId) {
+    //     // Xóa sản phẩm khỏi giỏ hàng
+    // }
 
-    @PutMapping("/cart/update")
-    public ResponseEntity<Map<String, Object>> updateCartQuantity(
-            @RequestParam Integer cartItemId,
-            @RequestParam Integer quantity) {
+    // TODO: NGƯỜI 3 - API đặt hàng
+    // @PostMapping("/orders")
+    // public ResponseEntity<?> createOrder(@RequestBody CreateOrderRequest request) {
+    //     // Tạo đơn hàng từ giỏ hàng
+    //     // Chuyển trạng thái sang "Chờ xác nhận"
+    // }
 
-        Map<String, Object> response = new HashMap<>();
+    // ========================================
+    // TODO: NGƯỜI 4 - Admin Panel & Product Management APIs
+    // ========================================
 
-        try {
-            CartItem updatedItem = cartService.updateQuantity(cartItemId, quantity);
+    // TODO: NGƯỜI 4 - API admin dashboard statistics
+    // @GetMapping("/admin/dashboard")
+    // @PreAuthorize("hasRole('ADMIN')")
+    // public ResponseEntity<?> getDashboardStats() {
+    //     // Thống kê tổng quan: số sản phẩm, đơn hàng, doanh thu
+    // }
 
-            response.put("success", true);
-            response.put("itemTotal", updatedItem.getSubTotal());
-            response.put("cartTotal", cartService.getCartTotal());
+    // TODO: NGƯỜI 4 - API quản lý sản phẩm - CRUD
+    // @GetMapping("/admin/products")
+    // @PostMapping("/admin/products")
+    // @PutMapping("/admin/products/{id}")
+    // @DeleteMapping("/admin/products/{id}")
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('STAFF')")
 
-            return ResponseEntity.ok(response);
+    // TODO: NGƯỜI 4 - API upload hình ảnh sản phẩm
+    // @PostMapping("/admin/products/upload-image")
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('STAFF')")
+    // public ResponseEntity<?> uploadProductImage(@RequestParam("file") MultipartFile file) {
+    //     // Upload và lưu hình ảnh sản phẩm
+    // }
 
-        } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
+    // TODO: NGƯỜI 4 - API quản lý đơn hàng
+    // @GetMapping("/admin/orders")
+    // @PutMapping("/admin/orders/{id}/status")
+    // @PreAuthorize("hasRole('ADMIN') or hasRole('STAFF')")
 
-    // ===== PRODUCT API =====
+    // TODO: NGƯỜI 4 - API quản lý người dùng
+    // @GetMapping("/admin/users")
+    // @PutMapping("/admin/users/{id}/status")
+    // @PreAuthorize("hasRole('ADMIN')")
 
-    @GetMapping("/products/search")
-    public ResponseEntity<List<SanPham>> searchProducts(@RequestParam String q) {
-        List<SanPham> products = productService.searchProducts(q);
-        return ResponseEntity.ok(products);
-    }
+    // ========================================
+    // TODO: NGƯỜI 5 - Reports & Analytics APIs
+    // ========================================
 
-    @GetMapping("/products/category/{categoryId}")
-    public ResponseEntity<List<SanPham>> getProductsByCategory(@PathVariable Integer categoryId) {
-        List<SanPham> products = productService.getProductsByCategory(categoryId);
-        return ResponseEntity.ok(products);
-    }
+    // TODO: NGƯỜI 5 - API báo cáo doanh thu theo thời gian
+    // @GetMapping("/reports/revenue")
+    // @PreAuthorize("hasRole('ADMIN')")
+    // public ResponseEntity<?> getRevenueReport(
+    //         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+    //         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+    //     // Báo cáo doanh thu theo ngày/tháng/quý
+    // }
 
-    // ===== ADMIN API =====
+    // TODO: NGƯỜI 5 - API thống kê sản phẩm bán chạy
+    // @GetMapping("/reports/top-products")
+    // @PreAuthorize("hasRole('ADMIN')")
+    // public ResponseEntity<?> getTopSellingProducts(
+    //         @RequestParam(defaultValue = "10") int limit) {
+    //     // Top sản phẩm bán chạy nhất
+    // }
 
-    @DeleteMapping("/admin/product/{id}")
-    public ResponseEntity<Map<String, Object>> deleteProduct(@PathVariable Integer id) {
-        Map<String, Object> response = new HashMap<>();
+    // TODO: NGƯỜI 5 - API phân tích khách hàng
+    // @GetMapping("/reports/customer-analytics")
+    // @PreAuthorize("hasRole('ADMIN')")
+    // public ResponseEntity<?> getCustomerAnalytics() {
+    //     // Phân tích hành vi khách hàng, top khách hàng VIP
+    // }
 
-        try {
-            productService.deleteProduct(id);
-            response.put("success", true);
-            response.put("message", "Đã xóa sản phẩm");
-            return ResponseEntity.ok(response);
+    // TODO: NGƯỜI 5 - API export báo cáo Excel
+    // @GetMapping("/reports/export/excel")
+    // @PreAuthorize("hasRole('ADMIN')")
+    // public ResponseEntity<Resource> exportExcelReport(
+    //         @RequestParam String reportType,
+    //         @RequestParam LocalDate startDate,
+    //         @RequestParam LocalDate endDate) {
+    //     // Export báo cáo ra file Excel
+    // }
 
-        } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
+    // TODO: NGƯỜI 5 - API thống kê theo thời gian thực
+    // @GetMapping("/reports/realtime-stats")
+    // @PreAuthorize("hasRole('ADMIN')")
+    // public ResponseEntity<?> getRealtimeStats() {
+    //     // Thống kê real-time: đơn hàng hôm nay, doanh thu, sản phẩm hot
+    // }
 
-    @PutMapping("/admin/product/{id}/toggle-status")
-    public ResponseEntity<Map<String, Object>> toggleProductStatus(@PathVariable Integer id) {
-        Map<String, Object> response = new HashMap<>();
-
-        try {
-            productService.toggleStatus(id);
-            response.put("success", true);
-            return ResponseEntity.ok(response);
-
-        } catch (Exception e) {
-            response.put("success", false);
-            response.put("message", e.getMessage());
-            return ResponseEntity.badRequest().body(response);
-        }
-    }
 }
