@@ -1,14 +1,11 @@
 package com.example.projectend.entity;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 
 /**
- * ENTITY LOAI SAN PHAM (Category)
- * TODO: Người 1 - Database & Entities
- * TODO: Người 4 - Admin Panel (CRUD categories)
- * Mô tả: Danh mục sản phẩm (Bánh kẹo, Giỏ quà, Đồ trang trí...)
+ * ENTITY LOAI SAN PHAM
+ * Người 1 - Database Design & Backend Core
+ * Mapping với bảng LoaiSanPham trong database WebBanHangTet
  */
 @Entity
 @Table(name = "LoaiSanPham")
@@ -19,9 +16,7 @@ public class LoaiSanPham {
     @Column(name = "MaLoai")
     private Integer maLoai;
 
-    @NotBlank(message = "Tên loại sản phẩm không được để trống")
-    @Size(max = 100, message = "Tên loại không được quá 100 ký tự")
-    @Column(name = "TenLoai", length = 100, nullable = false, unique = true)
+    @Column(name = "TenLoai", nullable = false, unique = true, length = 100)
     private String tenLoai;
 
     // Constructors
@@ -32,9 +27,19 @@ public class LoaiSanPham {
     }
 
     // Getters and Setters
-    public Integer getMaLoai() { return maLoai; }
-    public void setMaLoai(Integer maLoai) { this.maLoai = maLoai; }
+    public Integer getMaLoai() {
+        return maLoai;
+    }
 
-    public String getTenLoai() { return tenLoai; }
-    public void setTenLoai(String tenLoai) { this.tenLoai = tenLoai; }
+    public void setMaLoai(Integer maLoai) {
+        this.maLoai = maLoai;
+    }
+
+    public String getTenLoai() {
+        return tenLoai;
+    }
+
+    public void setTenLoai(String tenLoai) {
+        this.tenLoai = tenLoai;
+    }
 }

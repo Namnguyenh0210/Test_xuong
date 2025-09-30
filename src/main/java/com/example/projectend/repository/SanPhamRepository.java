@@ -1,39 +1,47 @@
 package com.example.projectend.repository;
 
 import com.example.projectend.entity.SanPham;
-import com.example.projectend.entity.LoaiSanPham;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-import java.util.List;
 
 /**
- * REPOSITORY SAN PHAM
- * TODO: Người 1 - Database & Entities
- * TODO: Người 3 - Frontend (lấy sản phẩm hiển thị)
- * TODO: Người 4 - Admin Panel (CRUD products)
+ * SAN PHAM REPOSITORY
+ * Người 1 - Database Design & Backend Core (ĐÃ HOÀN THÀNH)
+ * Repository cho entity SanPham
  */
 @Repository
 public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
 
-    // TODO: Người 3 - Methods cho trang chủ
-    // @Query("SELECT s FROM SanPham s ORDER BY s.soLuongDaBan DESC")
-    // List<SanPham> findFeaturedProducts(@Param("limit") int limit);
+    // ========================================
+    // TODO: NGƯỜI 3 - Frontend & Customer Website
+    // ========================================
 
-    // @Query("SELECT s FROM SanPham s ORDER BY s.ngayTao DESC")
-    // List<SanPham> findNewestProducts(@Param("limit") int limit);
+    // TODO: NGƯỜI 3 - Thêm method tìm sản phẩm theo loại (cho menu danh mục)
+    // List<SanPham> findByLoaiSanPham(LoaiSanPham loai);
 
-    // TODO: Người 3 - Lấy sản phẩm theo danh mục
-    List<SanPham> findByLoaiSanPham(LoaiSanPham loaiSanPham);
+    // TODO: NGƯỜI 3 - Thêm method tìm sản phẩm theo trạng thái (còn hàng)
+    // List<SanPham> findByTrangThaiSanPham(TrangThaiSanPham trangThai);
 
-    // TODO: Người 3 - Tìm kiếm sản phẩm
-    List<SanPham> findByTenSPContainingIgnoreCase(String tenSP);
+    // TODO: NGƯỜI 3 - Thêm method tìm kiếm sản phẩm theo tên
+    // List<SanPham> findByTenSPContaining(String keyword);
 
-    // TODO: Người 4 - Admin panel - quản lý sản phẩm
-    // List<SanPham> findByTenSPContainingIgnoreCaseOrderByNgayTaoDesc(String tenSP);
+    // TODO: NGƯỜI 3 - Thêm method lấy sản phẩm mới nhất (trang chủ)
+    // List<SanPham> findTop6ByOrderByNgayTaoDesc();
 
-    // TODO: Người 5 - Báo cáo doanh thu
-    // @Query("SELECT s.loaiSanPham, SUM(od.soLuong * od.donGia) as tongDoanhThu FROM SanPham s JOIN OrderDetail od ON s.maSP = od.sanPham.maSP GROUP BY s.loaiSanPham")
-    // List<Object[]> getRevenueByCategory();
+    // TODO: NGƯỜI 3 - Thêm method lấy sản phẩm theo giá (lọc)
+    // List<SanPham> findByGiaBetween(BigDecimal minPrice, BigDecimal maxPrice);
+
+    // ========================================
+    // TODO: NGƯỜI 4 - Admin Panel & Product Management
+    // ========================================
+
+    // TODO: NGƯỜI 4 - Thêm method thống kê sản phẩm theo trạng thái
+    // Long countByTrangThaiSanPham(TrangThaiSanPham trangThai);
+
+    // TODO: NGƯỜI 4 - Thêm method tìm sản phẩm sắp hết hàng
+    // List<SanPham> findBySoLuongLessThan(Integer threshold);
+
+    // TODO: NGƯỜI 4 - Thêm method tìm sản phẩm theo khoảng thời gian tạo
+    // List<SanPham> findByNgayTaoBetween(LocalDateTime start, LocalDateTime end);
+
 }

@@ -141,8 +141,56 @@ echo ""
 print_warning "Press Ctrl+C to stop the application"
 echo ""
 
-# Start the application
-mvn spring-boot:run
+# Function to check if Spring Boot is ready
+wait_for_spring_boot() {
+    print_info "⏳ Waiting for Spring Boot to start..."
+    local max_attempts=30
+    local attempt=1
+
+    while [ $attempt -le $max_attempts ]; do
+        if curl -s http://localhost:8080 > /dev/null 2>&1; then
+            print_status "Spring Boot is ready!"
+            return 0
+        fi
+        sleep 2
+        attempt=$((attempt + 1))
+    done
+
+    print_warning "Spring Boot took longer than expected to start"
+    return 1
+}
+
+# Function to open browser
+open_browser() {
+    if command -v open >/dev/null 2>&1; then
+        # macOS
+        print_info "🌐 Opening browser..."
+        open http://localhost:8080
+    elif command -v xdg-open >/dev/null 2>&1; then
+        # Linux
+        print_info "🌐 Opening browser..."
+        xdg-open http://localhost:8080
+    elif command -v start >/dev/null 2>&1; then
+        # Windows
+        print_info "🌐 Opening browser..."
+        start http://localhost:8080
+    else
+        print_info "🌐 Please open your browser and go to: http://localhost:8080"
+    fi
+}
+
+# Start Spring Boot in background
+print_info "🚀 Starting Spring Boot application..."
+mvn spring-boot:run &
+SPRING_PID=$!
+
+# Wait for Spring Boot to be ready, then open browser
+if wait_for_spring_boot; then
+    open_browser
+fi
+
+# Wait for the Spring Boot process
+wait $SPRING_PID
 
 # This will run when Ctrl+C is pressed
 echo ""

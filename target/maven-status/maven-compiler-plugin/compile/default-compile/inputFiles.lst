@@ -1,18 +1,30 @@
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/Product.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/KienThucController.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/LienHeController.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/config/SecurityConfig.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/model/CartItem.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/repository/CartItemRepository.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/HomeController.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/CartItem.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/GioHangController.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/GioiThieuController.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/service/CartService.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/model/Product.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/ProjectendApplication.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/ProfileController.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/repository/ProductRepository.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/SanPhamController.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/AuthController.java
-/Users/nam.nguyenh/Downloads/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/service/ProductService.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/SanPham.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/KienThucController.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/repository/GioHangRepository.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/ProfileController.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/TaiKhoan.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/SanPhamController.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/TrangThaiDonHang.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/config/SecurityConfig.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/DonHang.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/GioiThieuController.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/ApiController.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/VaiTro.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/ProjectendApplication.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/ThongKe.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/LoaiSanPham.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/TrangThaiSanPham.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/GioHang.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/DiaChi.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/repository/LoaiSanPhamRepository.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/AuthController.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/HomeController.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/GioHangController.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/repository/SanPhamRepository.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/controller/LienHeController.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/repository/DonHangRepository.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/repository/TaiKhoanRepository.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/NhapKho.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/PhuongThucThanhToan.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/repository/VaiTroRepository.java
+/Users/nam.nguyenh/Documents/Zalo Received Files/JAVAWEB_FPT/pro-ctedn-main/projectend/projectend-spring/src/main/java/com/example/projectend/entity/DonHangChiTiet.java
