@@ -5,8 +5,7 @@ import java.time.LocalDateTime;
 
 /**
  * ENTITY NHAP KHO
- * Người 1 - Database Design & Backend Core
- * Mapping với bảng NhapKho trong database WebBanHangTet
+ * Người 1 - Database Design & Backend Core (Bổ sung 03/10/2025)
  */
 @Entity
 @Table(name = "NhapKho")
@@ -27,7 +26,6 @@ public class NhapKho {
     @Column(name = "NgayNhap")
     private LocalDateTime ngayNhap = LocalDateTime.now();
 
-    // Constructors
     public NhapKho() {}
 
     public NhapKho(SanPham sanPham, Integer soLuong) {
@@ -35,36 +33,13 @@ public class NhapKho {
         this.soLuong = soLuong;
     }
 
-    // Getters and Setters
-    public Integer getMaNK() {
-        return maNK;
-    }
-
-    public void setMaNK(Integer maNK) {
-        this.maNK = maNK;
-    }
-
-    public SanPham getSanPham() {
-        return sanPham;
-    }
-
-    public void setSanPham(SanPham sanPham) {
-        this.sanPham = sanPham;
-    }
-
-    public Integer getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(Integer soLuong) {
-        this.soLuong = soLuong;
-    }
-
-    public LocalDateTime getNgayNhap() {
-        return ngayNhap;
-    }
-
-    public void setNgayNhap(LocalDateTime ngayNhap) {
-        this.ngayNhap = ngayNhap;
-    }
+    public Integer getMaNK() { return maNK; }
+    public void setMaNK(Integer maNK) { this.maNK = maNK; }
+    public SanPham getSanPham() { return sanPham; }
+    public void setSanPham(SanPham sanPham) { this.sanPham = sanPham; }
+    public Integer getSoLuong() { return soLuong; }
+    public void setSoLuong(Integer soLuong) { this.soLuong = soLuong; }
+    public LocalDateTime getNgayNhap() { return ngayNhap; }
+    public void setNgayNhap(LocalDateTime ngayNhap) { this.ngayNhap = ngayNhap; }
 }
+

@@ -22,6 +22,9 @@ public class GioiThieuController {
 
     @GetMapping("/gioithieu")
     public String gioiThieu(Model model) {
+        // Add current page for navigation active state
+        model.addAttribute("currentPage", "gioithieu");
+
         // TODO: NGƯỜI 3 - Thêm nội dung giới thiệu về cửa hàng
         // model.addAttribute("companyInfo", "Thông tin về cửa hàng đồ Tết");
         // model.addAttribute("mission", "Sứ mệnh của cửa hàng");

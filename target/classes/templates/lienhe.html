@@ -2,197 +2,241 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${pageTitle}">Liên hệ - Cửa hàng đồ Tết</title>
-    <link rel="stylesheet" th:href="@{/css/gioithieu.css}">
-    <link rel="stylesheet" th:href="@{/css/home.css}">
-    <link rel="stylesheet" th:href="@{/css/lienhe.css}">
-    <link rel="shortcut icon" href="https://png.pngtree.com/png-clipart/20220823/original/pngtree-mid-autumn-festival-border-vietnamese-blue-png-image_8483538.png" type="image/x-icon">
-
+    <th:block th:replace="~{fragments/layout :: head('Liên Hệ')}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/lienhe.css?v=1}">
 </head>
 
 <body>
-    <header>
-        <div class="head">
-            <div class="head1">
-                <svg class="icon size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" >
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                </svg>
-                <p>INFO@THEMONA.GLOBAL </p>
+    <!-- Header chung -->
+    <th:block th:replace="~{fragments/layout :: header}"></th:block>
 
+    <!-- Breadcrumb -->
+    <th:block th:replace="~{fragments/layout :: breadcrumb(${breadcrumbItems})}"></th:block>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-header">
+                <h1>📞 Liên Hệ Với Chúng Tôi</h1>
+                <p>Hãy để lại thông tin để chúng tôi có thể hỗ trợ bạn tốt nhất!</p>
             </div>
 
-            <div class="head1">
-                <svg class="icon size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" >
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
-                </svg>
-                <p>0313728397</p>
-            </div>
-        </div>
+            <div class="contact-content">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h2>Thông Tin Liên Hệ</h2>
 
-        <nav>
-            <div class="navbar">
-
-                <a th:href="@{/home}">
-                    <img src="http://mauweb.monamedia.net/monacake/wp-content/uploads/2018/06/logo-panda-04.png" alt="">
-                </a>
-                <div class="navbar2">
-                    <a th:href="@{/home}">TRANG CHỦ</a>
-                    <a th:href="@{/gioithieu}">GIỚI THIỆU</a>
-                    <a th:href="@{/sanpham}">SẢN PHẨM</a>
-
-
-                    <a th:href="@{/kienthuc}">KIẾN THỨC</a>
-                    <a href="../html/lienhe.html ">LIÊN HỆ</a>
-                    <div class="iconnav">
-                        <div class="container">
-
-                            <input checked="" class="checkbox" type="checkbox">
-                            <div class="mainbox">
-                                <div class="iconContainer">
-                                    <svg viewBox="0 0 512 512" height="1em" xmlns="http://www.w3.org/2000/svg"
-                                        class="search_icon">
-                                        <path
-                                            d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <input class="search_input" placeholder="search" type="text">
-                            </div>
-
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
                         </div>
-                        <a th:href="@{/login}">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
-                            </svg>
-                        </a>
-                        <a th:href="@{/giohang}">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 0 0-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 0 0-16.536-1.84M7.5 14.25 5.106 5.272M6 20.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm12.75 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
-                            </svg>
-
-                        </a>
+                        <div class="info-content">
+                            <h3>Địa Chỉ</h3>
+                            <p th:text="${shopAddress}">123 Đường ABC, Quận XYZ, TP.HCM</p>
+                        </div>
                     </div>
 
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Điện Thoại</h3>
+                            <p th:text="${shopPhone}">0909 123 456</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Email</h3>
+                            <p th:text="${shopEmail}">contact@tetmarket.com</p>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Giờ Làm Việc</h3>
+                            <p th:text="${shopHours}">8:00 - 22:00 hàng ngày</p>
+                        </div>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="social-section">
+                        <h3>Kết Nối Với Chúng Tôi</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link facebook">
+                                <i class="fab fa-facebook"></i>
+                                <span>Facebook</span>
+                            </a>
+                            <a href="#" class="social-link instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="#" class="social-link youtube">
+                                <i class="fab fa-youtube"></i>
+                                <span>YouTube</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form-section">
+                    <h2>Gửi Tin Nhắn</h2>
+                    <form class="contact-form" method="post" action="/lienhe/gui">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="hoTen">Họ Tên *</label>
+                                <input type="text" id="hoTen" name="hoTen" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="soDienThoai">Số Điện Thoại *</label>
+                                <input type="tel" id="soDienThoai" name="soDienThoai" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="chuDe">Chủ Đề</label>
+                            <select id="chuDe" name="chuDe">
+                                <option value="tuvanthumuaqua">Tư vấn thứ mua quà</option>
+                                <option value="khieunaichatluong">Khiếu nại chất lượng</option>
+                                <option value="hopdongdoitac">Hợp đồng đối tác</option>
+                                <option value="khac">Khác</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="noiDung">Nội Dung *</label>
+                            <textarea id="noiDung" name="noiDung" rows="6" required
+                                      placeholder="Vui lòng mô tả chi tiết yêu cầu của bạn..."></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            <i class="fas fa-paper-plane"></i>
+                            Gửi Tin Nhắn
+                        </button>
+
+                        <!-- TODO: NGƯỜI 3 - Thêm hiển thị thông báo thành công/lỗi -->
+                        <div class="alert alert-success" th:if="${message != null && messageType == 'success'}" th:text="${message}"></div>
+                        <div class="alert alert-error" th:if="${message != null && messageType == 'error'}" th:text="${message}"></div>
+                    </form>
                 </div>
             </div>
-        </nav>
 
-    </header>
+            <!-- Map Section -->
+            <div class="map-section">
+                <h2>Vị Trí Cửa Hàng</h2>
+                <div class="map-container">
+                    <!-- TODO: NGƯỜI 3 - Tích hợp Google Maps API -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.4609289721735!2d106.66829841531493!3d10.776889992319736!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ed2392c44df%3A0xd2ecb62e0d050fe9!2sFPT%20University%20HCMC!5e0!3m2!1sen!2s!4v1609459200000!5m2!1sen!2s"
+                            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
 
-    <div class="gioithieu">
-        <h1>LIÊN HỆ </h1>
-        <div class="gioithieu1">
-            <a th:href="@{/home}">TRANG CHỦ / </a>
-            <h2>LIÊN HỆ</h2>
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2>Câu Hỏi Thường Gặp</h2>
+                <div class="faq-list">
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            Có giao hàng tận nơi không?
+                        </h3>
+                        <div class="faq-answer">
+                            <p>Có, chúng tôi giao hàng tận nơi trong phạm vi TP.HCM và các tỉnh lân cận. Phí giao hàng sẽ được tính theo khoảng cách.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            Thời gian giao hàng là bao lâu?
+                        </h3>
+                        <div class="faq-answer">
+                            <p>Đối với nội thành TP.HCM: 1-2 ngày. Đối với các tỉnh: 2-5 ngày tùy theo địa điểm.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            Có thể đổi trả hàng không?
+                        </h3>
+                        <div class="faq-answer">
+                            <p>Có, bạn có thể đổi trả trong vòng 7 ngày nếu sản phẩm chưa sử dụng và còn nguyên bao bì.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <h3 class="faq-question">
+                            <i class="fas fa-question-circle"></i>
+                            Có nhận đặt hàng số lượng lớn không?
+                        </h3>
+                        <div class="faq-answer">
+                            <p>Có, chúng tôi nhận đặt hàng số lượng lớn cho doanh nghiệp với giá ưu đãi. Vui lòng liên hệ trực tiếp để được tư vấn.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-    
-    <div class="contact">
-        <iframe class="map" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.265429324796!2d106.65354421139085!3d10.7909713588793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752ecb2f6e97fb%3A0x45c50d9a76a79124!2zMTA3My8yMyDEkC4gQ8OhY2ggTeG6oW5nIFRow6FuZyA4LCBQaMaw4budbmcgNywgVMOibiBCw6xuaCwgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1720928506463!5m2!1svi!2s" width="710" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-        <img src="https://quatet.monamedia.net/wp-content/uploads/2018/04/logo-mona.png " alt="">
-        <div class="contact1">
-            <p>1073/23 Cách Mạng Tháng 8, P.7, Q.Tân Bình, TP.HCM</p>
-            <p>0313728397</p>
-            <p>info@themona.global</p>
-        </div>
+    </section>
 
-    </div>
-    <div class="h1">
+    <!-- Footer -->
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
 
-        <h1>LIÊN HỆ VỚI CHÚNG TÔI</h1>
-        <form id="lienhe" action="#">
-            <input type="text" id="hoten" placeholder="Họ và tên*"> <br>
-            <input type="email" id="email" placeholder="Email"> <br>
-            <input type="number" id="sodienthoai" placeholder="Số điện thoại"> <br>
-            <input type="text" id="diachi" placeholder="Địa chỉ"> <br>
-            <input   type="text" id="loinhan" placeholder="Lời nhắn"> <br>
-            <button id="butlhe">GỬI</button>
-        </form>
-        <p id="result"> </p>
-    </div>
+    <!-- Scripts -->
+    <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+    <script>
+        // FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const answer = faqItem.querySelector('.faq-answer');
 
+                // Toggle active class
+                faqItem.classList.toggle('active');
 
-    <div class="sale">
-        <div class="sale1">
-            <h2>ƯU ĐÃI GIẢM ĐẾN 30%</h2>
-            <h1>COMBO QUÀ TRUNG THU</h1>
-            
-            <button class="buybutton"><a href="">Buy now</a></button>
+                // Toggle answer visibility
+                if (faqItem.classList.contains('active')) {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                } else {
+                    answer.style.maxHeight = '0';
+                }
+            });
+        });
 
-            <p>"Đến mùa trăng sáng chẳng quên – Trung thu là lúc về bên gia đình
-                Thiên Lương đồng hành cùng bạn chia sẻ tình thân gia đình”</p>
-            <p>""Hãy để Trung Thu này thêm phần ý nghĩa với những món quà đặc biệt từ cửa hàng của chúng tôi!""
-            </p>
-        </div>
-        <div class="saleimg">
-            <img src="https://quatet.monamedia.net/wp-content/uploads/2023/12/Untitled-design-2-1-e1703760577620.png"
-                alt="">
-            <button class="but1"><svg class="iconbut" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                    <path fill="#63E6BE"
-                        d="M304 128a80 80 0 1 0 -160 0 80 80 0 1 0 160 0zM96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM49.3 464H398.7c-8.9-63.3-63.3-112-129-112H178.3c-65.7 0-120.1 48.7-129 112zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3z" />
-                </svg> Khách hàng tin tưởng</button>
-            <button class="but2"> <svg class="iconbut" xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                    <path fill="#d60505"
-                        d="M388.3 104.1a4.7 4.7 0 0 0 -4.4-4c-2 0-37.2-.8-37.2-.8s-21.6-20.8-29.6-28.8V503.2L442.8 472S388.7 106.5 388.3 104.1zM288.7 70.5a116.7 116.7 0 0 0 -7.2-17.6C271 32.9 255.4 22 237 22a15 15 0 0 0 -4 .4c-.4-.8-1.2-1.2-1.6-2C223.4 11.6 213 7.6 200.6 8c-24 .8-48 18-67.3 48.8-13.6 21.6-24 48.8-26.8 70.1-27.6 8.4-46.8 14.4-47.2 14.8-14 4.4-14.4 4.8-16 18-1.2 10-38 291.8-38 291.8L307.9 504V65.7a41.7 41.7 0 0 0 -4.4 .4S297.9 67.7 288.7 70.5zM233.4 87.7c-16 4.8-33.6 10.4-50.8 15.6 4.8-18.8 14.4-37.6 25.6-50 4.4-4.4 10.4-9.6 17.2-12.8C232.2 54.9 233.8 74.5 233.4 87.7zM200.6 24.4A27.5 27.5 0 0 1 215 28c-6.4 3.2-12.8 8.4-18.8 14.4-15.2 16.4-26.8 42-31.6 66.5-14.4 4.4-28.8 8.8-42 12.8C131.3 83.3 163.8 25.2 200.6 24.4zM154.2 244.6c1.6 25.6 69.3 31.2 73.3 91.7 2.8 47.6-25.2 80.1-65.7 82.5-48.8 3.2-75.7-25.6-75.7-25.6l10.4-44s26.8 20.4 48.4 18.8c14-.8 19.2-12.4 18.8-20.4-2-33.6-57.2-31.6-60.8-86.9-3.2-46.4 27.2-93.3 94.5-97.7 26-1.6 39.2 4.8 39.2 4.8L221.4 225.4s-17.2-8-37.6-6.4C154.2 221 153.8 239.8 154.2 244.6zM249.4 82.9c0-12-1.6-29.2-7.2-43.6 18.4 3.6 27.2 24 31.2 36.4Q262.6 78.7 249.4 82.9z" />
-                </svg>Sản phẩm chính hãng</button>
-            <button class="but3"><svg class="iconbut" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font
-                    Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License 
-                    https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                    <path fill="#FFD43B"
-                        d="M374.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-320 320c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l320-320zM128 128A64 64 0 1 0 0 128a64 64 0 1 0 128 0zM384 384a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z" />
-                </svg>Vô vàng ưu đãi</button>
-        </div>
-    </div>
+        // Form validation
+        const form = document.querySelector('.contact-form');
+        form.addEventListener('submit', function(e) {
+            const requiredFields = form.querySelectorAll('[required]');
+            let isValid = true;
 
-    <footer>
+            requiredFields.forEach(field => {
+                if (!field.value.trim()) {
+                    field.classList.add('error');
+                    isValid = false;
+                } else {
+                    field.classList.remove('error');
+                }
+            });
 
-        <div class="footer1">
-            <img src="http://mauweb.monamedia.net/monacake/wp-content/uploads/2018/06/logo-panda-04.png" alt="">
-            <p>Mona Quà Tết làm việc chặt chẽ với các nhà cung cấp, đảm bảo rằng sản phẩm được cung cấp là chất lượng
-                tốt nhất và mang đến niềm vui cho người nhận. Đồng thời, họ cũng cung cấp các sản phẩm từ các thương
-                hiệu nổi tiếng và đáng tin cậy, giúp khách hàng có nhiều sự lựa chọn phong phú.</p>
-        </div>
-        <div class="footer2">
-            <h2>THÔNG TIN LIÊN HỆ</h2>
-            <p>1073/23 Cách Mạng Tháng 8, P.7, Q.Tân Bình, TP.HCM</p>
-            <p>0313728397</p>
-            <p>info@themona.global</p>
-        </div>
-        <div class="footer3">
-            <h2>MENU </h2>
-            <a href="">Trang chủ</a>
-            <p> Giới thiệu</p>
-            <a href="">Sản phẩm</a>
-            <a href="">Kiến thức</a>
-            <a href="">Liên hệ</a>
-        </div>
-        <div class="footer4">
-            <h2>CHÍNH SÁCH MUA HÀNG</h2>
-            <a href="">
-                Chính sách đổi trả</a>
-            <a href="">Chính sách bảo mật
-            </a>
-            <a href="">Chính sách vận chuyển
-            </a>
-            <a href="">Điều khoản dịch vụ</a>
-        </div>
-
-
-    </footer>
-<script th:src="@{/js/lienhe.js}"></script>
+            if (!isValid) {
+                e.preventDefault();
+                alert('Vui lòng điền đầy đủ thông tin bắt buộc!');
+            }
+        });
+    </script>
 </body>
 
 

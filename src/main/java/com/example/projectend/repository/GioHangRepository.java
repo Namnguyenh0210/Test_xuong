@@ -1,35 +1,40 @@
 package com.example.projectend.repository;
 
-import com.example.projectend.entity.GioHang;
+import com.example.projectend.entity.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * GIO HANG REPOSITORY
- * Người 1 - Database Design & Backend Core (ĐÃ HOÀN THÀNH)
- * Repository cho entity GioHang
+ * Người 1 - Database Core (Bổ sung 03/10/2025)
  */
 @Repository
-public interface GioHangRepository extends JpaRepository<GioHang, Integer> {
+public interface GioHangRepository extends JpaRepository<GioHang, GioHangId> {
 
     // ========================================
-    // TODO: NGƯỜI 3 - Frontend & Customer Website
+    // TODO: NGƯỜI 3 - CART OPERATIONS (BUSINESS RULE)
     // ========================================
+    // Lấy toàn bộ item giỏ hàng của user (sort theo MaSP hoặc thời gian nếu có cột thời gian sau này)
+    // List<GioHang> findByTaiKhoanOrderBySanPham_MaSPAsc(TaiKhoan taiKhoan);
 
-    // TODO: NGƯỜI 3 - Thêm method lấy toàn bộ giỏ hàng của một khách hàng
-    // List<GioHang> findByTaiKhoan(TaiKhoan taiKhoan);
-
-    // TODO: NGƯỜI 3 - Thêm method kiểm tra sản phẩm đã có trong giỏ hàng chưa
+    // Tìm 1 item trong giỏ để quyết định: nếu tồn tại -> cập nhật +quantity (UP-SERT logic)
     // Optional<GioHang> findByTaiKhoanAndSanPham(TaiKhoan taiKhoan, SanPham sanPham);
 
-    // TODO: NGƯỜI 3 - Thêm method đếm số lượng sản phẩm trong giỏ hàng
-    // Long countByTaiKhoan(TaiKhoan taiKhoan);
-
-    // TODO: NGƯỜI 3 - Thêm method xóa toàn bộ giỏ hàng của khách (sau khi đặt hàng)
+    // Xoá tất cả giỏ hàng user sau khi checkout thành công (dùng trong OrderService.placeOrder)
     // void deleteByTaiKhoan(TaiKhoan taiKhoan);
 
-    // TODO: NGƯỜI 3 - Thêm method tính tổng tiền giỏ hàng (custom query)
-    // @Query("SELECT SUM(gh.soLuong * sp.gia) FROM GioHang gh JOIN gh.sanPham sp WHERE gh.taiKhoan = :taiKhoan")
-    // BigDecimal calculateTotalByTaiKhoan(@Param("taiKhoan") TaiKhoan taiKhoan);
+    // ========================================
+    // TODO: NGƯỜI 2/3 - MERGE CART (Remember cart khi login) (Optional)
+    // ========================================
+    // Lấy số lượng items để quyết định merge strategy (ví dụ > 100 thì giới hạn)
+    // long countByTaiKhoan(TaiKhoan taiKhoan);
 
+    // ========================================
+    // TODO: NGƯỜI 4 - DASHBOARD ADMIN / STAFF
+    // ========================================
+    // Tổng số record cart trong hệ thống (theo dõi tương tác khách)
+    // long count();
 }

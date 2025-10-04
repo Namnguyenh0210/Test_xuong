@@ -1,60 +1,51 @@
 package com.example.projectend.repository;
 
 import com.example.projectend.entity.DonHang;
+import com.example.projectend.entity.TaiKhoan;
+import com.example.projectend.entity.TrangThaiDonHang;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * DON HANG REPOSITORY
- * Người 1 - Database Design & Backend Core (ĐÃ HOÀN THÀNH)
- * Repository cho entity DonHang
+ * Người 1 - Database Core (Bổ sung 03/10/2025)
  */
 @Repository
 public interface DonHangRepository extends JpaRepository<DonHang, Integer> {
 
     // ========================================
-    // TODO: NGƯỜI 3 - Frontend & Customer Website
+    // TODO: NGƯỜI 3 - FRONTEND (LỊCH SỬ ĐƠN HÀNG KHÁCH)
     // ========================================
-
-    // TODO: NGƯỜI 3 - Thêm method lấy lịch sử đơn hàng của khách hàng
-    // List<DonHang> findByTaiKhoanOrderByNgayDatDesc(TaiKhoan taiKhoan);
-
-    // TODO: NGƯỜI 3 - Thêm method tìm đơn hàng theo trạng thái (cho khách hàng)
-    // List<DonHang> findByTaiKhoanAndTrangThaiDonHang(TaiKhoan taiKhoan, TrangThaiDonHang trangThai);
-
-    // TODO: NGƯỜI 3 - Thêm method đếm số đơn hàng của khách hàng
-    // Long countByTaiKhoan(TaiKhoan taiKhoan);
+    // Lịch sử đơn khách hàng (mới nhất trước)
+    // List<DonHang> findByKhachHangOrderByNgayDatDesc(TaiKhoan khachHang);
+    // Lịch sử theo trạng thái (ví dụ: chỉ đơn Hoàn tất / Đang giao)
+    // List<DonHang> findByKhachHangAndTrangThaiDonHangOrderByNgayDatDesc(TaiKhoan khachHang, TrangThaiDonHang tt);
 
     // ========================================
-    // TODO: NGƯỜI 4 - Admin Panel & Product Management
+    // TODO: NGƯỜI 4 - STAFF / ADMIN (QUY TRÌNH CLAIM ĐƠN)
     // ========================================
-
-    // TODO: NGƯỜI 4 - Thêm method lấy tất cả đơn hàng (cho admin)
-    // List<DonHang> findAllByOrderByNgayDatDesc();
-
-    // TODO: NGƯỜI 4 - Thêm method tìm đơn hàng theo trạng thái (cho admin)
-    // List<DonHang> findByTrangThaiDonHangOrderByNgayDatDesc(TrangThaiDonHang trangThai);
-
-    // TODO: NGƯỜI 4 - Thêm method tìm đơn hàng theo ngày
+    // Danh sách đơn CHƯA được nhân viên nào nhận xử lý (nhanVien IS NULL) và ở trạng thái chờ xác nhận
+    // List<DonHang> findByNhanVienIsNullAndTrangThaiDonHang(TrangThaiDonHang tt);
+    // Đơn đang do 1 nhân viên phụ trách với 1 trạng thái cụ thể (đang xử lý / đang giao)
+    // List<DonHang> findByNhanVienAndTrangThaiDonHangOrderByNgayDatAsc(TaiKhoan nhanVien, TrangThaiDonHang tt);
+    // Tất cả đơn của 1 nhân viên (để dashboard nhân viên)
+    // List<DonHang> findByNhanVienOrderByNgayDatDesc(TaiKhoan nhanVien);
+    // Lọc theo khoảng thời gian (báo cáo / dashboard)
     // List<DonHang> findByNgayDatBetween(LocalDateTime start, LocalDateTime end);
 
-    // TODO: NGƯỜI 4 - Thêm method thống kê đơn hàng theo trạng thái
-    // Long countByTrangThaiDonHang(TrangThaiDonHang trangThai);
-
     // ========================================
-    // TODO: NGƯỜI 5 - Reports & Analytics
+    // TODO: NGƯỜI 5 - REPORTS & ANALYTICS
     // ========================================
-
-    // TODO: NGƯỜI 5 - Thêm method tính tổng doanh thu theo khoảng thời gian
-    // @Query("SELECT SUM(dh.tongTien) FROM DonHang dh WHERE dh.ngayDat BETWEEN :start AND :end")
-    // BigDecimal calculateRevenueByDateRange(@Param("start") LocalDateTime start, @Param("end") LocalDateTime end);
-
-    // TODO: NGƯỜI 5 - Thêm method thống kê đơn hàng theo tháng
-    // @Query("SELECT MONTH(dh.ngayDat), COUNT(dh), SUM(dh.tongTien) FROM DonHang dh WHERE YEAR(dh.ngayDat) = :year GROUP BY MONTH(dh.ngayDat)")
-    // List<Object[]> getMonthlyStatistics(@Param("year") int year);
-
-    // TODO: NGƯỜI 5 - Thêm method lấy top khách hàng theo doanh thu
-    // @Query("SELECT dh.taiKhoan, SUM(dh.tongTien) FROM DonHang dh GROUP BY dh.taiKhoan ORDER BY SUM(dh.tongTien) DESC")
-    // List<Object[]> getTopCustomersByRevenue();
-
+    // Tổng doanh thu khoảng thời gian (đã có) – sử dụng cho biểu đồ / thống kê
+    @Query("SELECT SUM(d.tongTien) FROM DonHang d WHERE d.ngayDat BETWEEN :start AND :end")
+    BigDecimal sumRevenueByDateRange(LocalDateTime start, LocalDateTime end);
+    // Đếm số đơn trong khoảng (phục vụ tính conversion / trung bình đơn)
+    // long countByNgayDatBetween(LocalDateTime start, LocalDateTime end);
+    // Lấy danh sách đơn đã hoàn tất trong khoảng (để tính sản phẩm bán ra -> ThongKe)
+    // List<DonHang> findByTrangThaiDonHangAndNgayDatBetween(TrangThaiDonHang tt, LocalDateTime start, LocalDateTime end);
 }

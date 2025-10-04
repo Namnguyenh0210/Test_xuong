@@ -2,99 +2,215 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/home.css}">
-    <title th:text="${pageTitle}">Trang chủ - Cửa hàng đồ Tết</title>
-    <link rel="shortcut icon" href="https://png.pngtree.com/png-clipart/20220823/original/pngtree-mid-autumn-festival-border-vietnamese-blue-png-image_8483538.png" type="image/x-icon">
+    <th:block th:replace="~{fragments/layout :: head('Trang Chủ')}"></th:block>
+    <link rel="stylesheet" th:href="@{/css/home.css?v=20251003}">
 </head>
 
 <body>
-    <header>
-        <div class="head">
-            <div class="head1">
-                <svg class="icon size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                </svg>
-                <p>contact@tetshop.com</p>
-            </div>
+    <!-- Header -->
+    <th:block th:replace="~{fragments/layout :: header}"></th:block>
 
-            <div class="head1">
-                <svg class="icon size-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
-                </svg>
-                <p>0909 123 456</p>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="container">
+                <div class="hero-text fade-in">
+                    <h1>🎊 Chào Xuân <span th:text="${tetYear}"></span> 🎊</h1>
+                    <p class="hero-subtitle">Mua sắm quà Tết truyền thống với ưu đãi đặc biệt</p>
+                    <div class="hero-buttons">
+                        <a href="/sanpham" class="btn btn-primary btn-lg">
+                            <i class="fas fa-shopping-bag"></i> Mua Sắm Ngay
+                        </a>
+                        <a href="/gioithieu" class="btn btn-secondary btn-lg">
+                            <i class="fas fa-info-circle"></i> Tìm Hiểu Thêm
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+        <div class="hero-decoration">
+            <div class="firework firework-1">🎆</div>
+            <div class="firework firework-2">✨</div>
+            <div class="firework firework-3">🎊</div>
+        </div>
+    </section>
 
-        <nav>
-            <div class="navbar">
-                <a th:href="@{/}">
-                    <img src="http://mauweb.monamedia.net/monacake/wp-content/uploads/2018/06/logo-panda-04.png" alt="Logo Tết Shop">
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title text-center">Tại Sao Chọn Chúng Tôi?</h2>
+            <div class="row">
+                <div class="col-4">
+                    <div class="feature-card slide-up">
+                        <div class="feature-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <h3>Quà Tặng Ý Nghĩa</h3>
+                        <p>Các sản phẩm được tuyển chọn kỹ lưỡng, mang ý nghĩa may mắn cho năm mới</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-card slide-up">
+                        <div class="feature-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3>Giao Hàng Nhanh</h3>
+                        <p>Giao hàng tận nơi trong 24h, đảm bảo tươi ngon cho ngày Tết</p>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="feature-card slide-up">
+                        <div class="feature-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Chất Lượng Cao</h3>
+                        <p>Cam kết 100% chất lượng, hoàn tiền nếu không hài lòng</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-products">
+        <div class="container">
+            <h2 class="section-title text-center">Sản Phẩm Nổi Bật</h2>
+            <div class="row">
+                <div class="col-3">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://picsum.photos/300/300?random=1" alt="Giỏ quà Tết">
+                            <div class="product-badge">Hot</div>
+                        </div>
+                        <div class="product-info">
+                            <h4>Giỏ Quà Tết An Khang</h4>
+                            <p class="product-price">500.000đ</p>
+                            <button class="btn btn-primary w-full">
+                                <i class="fas fa-cart-plus"></i> Thêm Vào Giỏ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://picsum.photos/300/300?random=2" alt="Hộp quà Tết">
+                            <div class="product-badge sale">Sale</div>
+                        </div>
+                        <div class="product-info">
+                            <h4>Hộp Quà Tết Phát Tài</h4>
+                            <p class="product-price">1.200.000đ</p>
+                            <button class="btn btn-primary w-full">
+                                <i class="fas fa-cart-plus"></i> Thêm Vào Giỏ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://picsum.photos/300/300?random=3" alt="Mứt Tết">
+                        </div>
+                        <div class="product-info">
+                            <h4>Mứt Dừa Non 500g</h4>
+                            <p class="product-price">150.000đ</p>
+                            <button class="btn btn-primary w-full">
+                                <i class="fas fa-cart-plus"></i> Thêm Vào Giỏ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://picsum.photos/300/300?random=4" alt="Bao lì xì">
+                            <div class="product-badge new">New</div>
+                        </div>
+                        <div class="product-info">
+                            <!-- TODO (Người 3): Nếu sản phẩm phụ thuộc năm, giữ dynamic tetYear -->
+                            <h4>Bao Lì Xì Vàng <span th:text="${tetYear}">2025</span></h4>
+                            <p class="product-price">30.000đ</p>
+                            <button class="btn btn-primary w-full">
+                                <i class="fas fa-cart-plus"></i> Thêm Vào Giỏ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <a href="/sanpham" class="btn btn-outline btn-lg">
+                    <i class="fas fa-arrow-right"></i> Xem Tất Cả Sản Phẩm
                 </a>
-                <div class="navbar2">
-                    <a th:href="@{/}">TRANG CHỦ</a>
-                    <a th:href="@{/gioithieu}">GIỚI THIỆU</a>
-                    <a th:href="@{/sanpham}">SẢN PHẨM</a>
-                    <a th:href="@{/kienthuc}">KIẾN THỨC</a>
-                    <a th:href="@{/lienhe}">LIÊN HỆ</a>
-                </div>
-                <div class="navbar-actions">
-                    <a th:href="@{/login}" class="login-btn">ĐĂNG NHẬP</a>
-                    <a th:href="@{/giohang}" class="cart-btn">GIỎ HÀNG</a>
-                </div>
             </div>
-        </nav>
-    </header>
-
-    <main>
-        <section class="hero">
-            <div class="hero-content">
-                <h1>Chào Mừng Tết Nguyên Đán 2025</h1>
-                <p>Cửa hàng đồ Tết uy tín - Giỏ quà, hộp quà, mứt bánh kẹo cao cấp</p>
-                <a th:href="@{/sanpham}" class="btn-primary">XEM SẢN PHẨM</a>
-            </div>
-        </section>
-
-        <!-- TODO: NGƯỜI 3 - Thêm section sản phẩm nổi bật -->
-        <section class="featured-products">
-            <h2>Sản Phẩm Nổi Bật</h2>
-            <div class="product-grid">
-                <!-- TODO: NGƯỜI 3 - Loop qua featuredProducts từ controller -->
-                <div class="product-card">
-                    <h3>Sản phẩm mẫu</h3>
-                    <p>Sẽ được thay thế bằng dữ liệu từ database</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- TODO: NGƯỜI 3 - Thêm section danh mục sản phẩm -->
-        <section class="categories">
-            <h2>Danh Mục Sản Phẩm</h2>
-            <div class="category-grid">
-                <div class="category-item">
-                    <h3>🧺 Giỏ Quà Tết</h3>
-                </div>
-                <div class="category-item">
-                    <h3>🎁 Hộp Quà Tết</h3>
-                </div>
-                <div class="category-item">
-                    <h3>🍯 Mứt - Bánh Kẹo</h3>
-                </div>
-                <div class="category-item">
-                    <h3>💰 Bao Lì Xì & Trang Trí</h3>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Cửa hàng đồ Tết. All rights reserved.</p>
-            <p>Địa chỉ: 123 Đường ABC, Quận XYZ, TP.HCM | Hotline: 0909 123 456</p>
         </div>
-    </footer>
+    </section>
 
+    <!-- Testimonials -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title text-center">Khách Hàng Nói Gì?</h2>
+            <div class="row">
+                <div class="col-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                            <p>"Sản phẩm chất lượng, giao hàng nhanh. Gia đình tôi rất hài lòng với giỏ quà Tết năm nay!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <strong>Chị Lan Anh</strong>
+                            <span>Khách hàng thân thiết</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                            <p>"Mứt ngon, đóng gói đẹp. Sẽ tiếp tục ủng hộ shop trong những dịp lễ tết sắp tới."</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <strong>Anh Minh Tuấn</strong>
+                            <span>Đại lý phân phối</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="stars">⭐⭐⭐⭐⭐</div>
+                            <p>"Dịch vụ tuyệt vời, tư vấn nhiệt tình. Quà Tết năm nay được cả nhà khen ngợi!"</p>
+                        </div>
+                        <div class="testimonial-author">
+                            <strong>Cô Hương</strong>
+                            <span>Khách hàng VIP</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter -->
+    <section class="newsletter">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Đăng Ký Nhận Thông Tin Ưu Đãi</h2>
+                <p>Nhận ngay mã giảm giá 10% cho đơn hàng đầu tiên!</p>
+                <form class="newsletter-form">
+                    <input type="email" class="form-control" placeholder="Nhập email của bạn..." required>
+                    <button type="submit" class="btn btn-secondary">
+                        <i class="fas fa-paper-plane"></i> Đăng Ký
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+
+    <!-- Scripts -->
+    <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
     <script th:src="@{/js/main.js}"></script>
 </body>
 

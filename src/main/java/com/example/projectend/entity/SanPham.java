@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
  * ENTITY SAN PHAM
  * Người 1 - Database Design & Backend Core
  * Mapping với bảng SanPham trong database WebBanHangTet
+ * NOTE 04/10/2025: Gỡ quan hệ TrangThaiSanPham do DB hiện tại KHÔNG có cột MaTTSP (giữ sạch theo script được cung cấp).
+ * TODO (Người 4 - Optional): Nếu bổ sung bảng trạng thái sản phẩm → thêm lại field trangThaiSanPham + cột MaTTSP.
  */
 @Entity
 @Table(name = "SanPham")
@@ -37,21 +39,16 @@ public class SanPham {
     @JoinColumn(name = "MaLoai", nullable = false)
     private LoaiSanPham loaiSanPham;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaTTSP", nullable = false)
-    private TrangThaiSanPham trangThaiSanPham;
-
     @Column(name = "NgayTao")
     private LocalDateTime ngayTao = LocalDateTime.now();
 
     // Constructors
     public SanPham() {}
 
-    public SanPham(String tenSP, BigDecimal gia, LoaiSanPham loaiSanPham, TrangThaiSanPham trangThaiSanPham) {
+    public SanPham(String tenSP, BigDecimal gia, LoaiSanPham loaiSanPham) {
         this.tenSP = tenSP;
         this.gia = gia;
         this.loaiSanPham = loaiSanPham;
-        this.trangThaiSanPham = trangThaiSanPham;
     }
 
     // Getters and Setters
@@ -109,14 +106,6 @@ public class SanPham {
 
     public void setLoaiSanPham(LoaiSanPham loaiSanPham) {
         this.loaiSanPham = loaiSanPham;
-    }
-
-    public TrangThaiSanPham getTrangThaiSanPham() {
-        return trangThaiSanPham;
-    }
-
-    public void setTrangThaiSanPham(TrangThaiSanPham trangThaiSanPham) {
-        this.trangThaiSanPham = trangThaiSanPham;
     }
 
     public LocalDateTime getNgayTao() {
