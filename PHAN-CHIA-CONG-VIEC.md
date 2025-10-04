@@ -4,7 +4,7 @@
 > Tech stack: Spring Boot 3.2.x · Thymeleaf · JPA (SQL Server) · Spring Security · (H2 Dev)  
 > Ngày cập nhật: 03/10/2025  
 > Lưu ý: **KHÔNG XOÁ các TODO trong code. Chỉ bổ sung / thực hiện rồi đánh dấu ở file này.**
-
+nam
 ---
 ## 1. 🌟 MỤC TIÊU CHÍNH
 | Mục tiêu | Trạng thái | Ghi chú |
