@@ -1,31 +1,390 @@
 <!DOCTYPE html>
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title th:text="${pageTitle}">Giỏ hàng - Cửa hàng đồ Tết</title>
+    <th:block th:replace="~{fragments/layout :: head('Giỏ Hàng')}"></th:block>
     <link rel="stylesheet" th:href="@{/css/giohang.css}">
 </head>
 <body>
-    <header>
-        <nav>
-            <a th:href="@{/}">← Về trang chủ</a> |
-            <a th:href="@{/sanpham}">Sản phẩm</a> |
-            <a th:href="@{/giohang}">Giỏ hàng</a> |
-            <a th:href="@{/login}">Đăng nhập</a>
-        </nav>
-    </header>
+    <!-- Header -->
+    <th:block th:replace="~{fragments/layout :: header}"></th:block>
 
-    <main>
-        <h1>Giỏ Hàng Của Bạn</h1>
-        <p><strong>TODO: NGƯỜI 3</strong> - Hoàn thiện giỏ hàng với dữ liệu từ database</p>
+    <!-- Breadcrumb -->
+    <th:block th:replace="~{fragments/layout :: breadcrumb(${[{name:'Giỏ Hàng'}]})}"></th:block>
 
-        <div class="temp-content">
-            <p>Giỏ hàng trống</p>
-            <p>Vui lòng thêm sản phẩm vào giỏ hàng để tiếp tục mua sắm</p>
-            <a th:href="@{/sanpham}">← Tiếp tục mua sắm</a>
+    <!-- Cart Section -->
+    <section class="cart-section">
+        <div class="container">
+            <div class="cart-header">
+                <h1>🛒 Giỏ Hàng Của Bạn</h1>
+                <div class="cart-progress">
+                    <div class="progress-step active">
+                        <div class="step-icon">1</div>
+                        <span>Giỏ Hàng</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step">
+                        <div class="step-icon">2</div>
+                        <span>Thanh Toán</span>
+                    </div>
+                    <div class="progress-line"></div>
+                    <div class="progress-step">
+                        <div class="step-icon">3</div>
+                        <span>Hoàn Tất</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-content">
+                <!-- Cart Items -->
+                <div class="cart-items">
+                    <div class="cart-table">
+                        <div class="table-header">
+                            <div class="header-item product-col">Sản Phẩm</div>
+                            <div class="header-item price-col">Đơn Giá</div>
+                            <div class="header-item quantity-col">Số Lượng</div>
+                            <div class="header-item total-col">Thành Tiền</div>
+                            <div class="header-item action-col">Thao Tác</div>
+                        </div>
+
+                        <!-- Cart Items -->
+                        <div class="cart-item" id="item-1">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="https://picsum.photos/100/100?random=1" alt="Giỏ quà Tết An Khang">
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Giỏ Quà Tết An Khang</h3>
+                                    <p class="product-category">Giỏ Quà Tết</p>
+                                    <div class="product-attributes">
+                                        <span class="attribute">Kích thước: Lớn</span>
+                                        <span class="attribute">Màu sắc: Đỏ vàng</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-price">
+                                <span class="current-price">400.000đ</span>
+                                <span class="original-price">500.000đ</span>
+                            </div>
+                            <div class="item-quantity">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" class="quantity-input" value="2" min="1" max="99">
+                                    <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="item-total">
+                                <span class="total-price">800.000đ</span>
+                            </div>
+                            <div class="item-action">
+                                <button class="action-btn save-later" title="Lưu để mua sau">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <button class="action-btn remove-item" title="Xóa sản phẩm" onclick="removeItem(1)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Cart Item 2 -->
+                        <div class="cart-item" id="item-2">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="https://picsum.photos/100/100?random=2" alt="Hộp quà Tết Phát Tài">
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Hộp Quà Tết Phát Tài</h3>
+                                    <p class="product-category">Hộp Quà Tết</p>
+                                    <div class="product-attributes">
+                                        <span class="attribute">Loại: Cao cấp</span>
+                                        <span class="attribute">Gói quà: Sang trọng</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-price">
+                                <span class="current-price">1.200.000đ</span>
+                            </div>
+                            <div class="item-quantity">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn minus" onclick="updateQuantity(2, -1)">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" class="quantity-input" value="1" min="1" max="99">
+                                    <button class="quantity-btn plus" onclick="updateQuantity(2, 1)">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="item-total">
+                                <span class="total-price">1.200.000đ</span>
+                            </div>
+                            <div class="item-action">
+                                <button class="action-btn save-later" title="Lưu để mua sau">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <button class="action-btn remove-item" title="Xóa sản phẩm" onclick="removeItem(2)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Cart Item 3 -->
+                        <div class="cart-item" id="item-3">
+                            <div class="item-product">
+                                <div class="product-image">
+                                    <img src="https://picsum.photos/100/100?random=3" alt="Bao lì xì vàng">
+                                </div>
+                                <div class="product-info">
+                                    <h3 class="product-name">Bao Lì Xì Vàng <span th:text="${tetYear}">2025</span> (10 cái)</h3>
+                                    <p class="product-category">Trang Trí</p>
+                                    <div class="product-attributes">
+                                        <span class="attribute">Màu sắc: Vàng</span>
+                                        <span class="attribute">Số lượng: 10 cái/gói</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="item-price">
+                                <span class="current-price">30.000đ</span>
+                            </div>
+                            <div class="item-quantity">
+                                <div class="quantity-controls">
+                                    <button class="quantity-btn minus" onclick="updateQuantity(3, -1)">
+                                        <i class="fas fa-minus"></i>
+                                    </button>
+                                    <input type="number" class="quantity-input" value="3" min="1" max="99">
+                                    <button class="quantity-btn plus" onclick="updateQuantity(3, 1)">
+                                        <i class="fas fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="item-total">
+                                <span class="total-price">90.000đ</span>
+                            </div>
+                            <div class="item-action">
+                                <button class="action-btn save-later" title="Lưu để mua sau">
+                                    <i class="fas fa-heart"></i>
+                                </button>
+                                <button class="action-btn remove-item" title="Xóa sản phẩm" onclick="removeItem(3)">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cart Actions -->
+                    <div class="cart-actions">
+                        <div class="left-actions">
+                            <button class="btn btn-outline" onclick="selectAll()">
+                                <i class="fas fa-check-square"></i>
+                                Chọn Tất Cả
+                            </button>
+                            <button class="btn btn-outline" onclick="clearCart()">
+                                <i class="fas fa-trash"></i>
+                                Xóa Giỏ Hàng
+                            </button>
+                        </div>
+                        <div class="right-actions">
+                            <a href="/sanpham" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i>
+                                Tiếp Tục Mua Sắm
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cart Summary -->
+                <div class="cart-summary">
+                    <div class="summary-card">
+                        <h3 class="summary-title">Tóm Tắt Đơn Hàng</h3>
+
+                        <div class="summary-row">
+                            <span>Tạm tính (6 sản phẩm):</span>
+                            <span>2.090.000đ</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Giảm giá:</span>
+                            <span class="discount">-100.000đ</span>
+                        </div>
+
+                        <div class="summary-row">
+                            <span>Phí vận chuyển:</span>
+                            <span class="shipping-fee">
+                                <span class="original-fee">30.000đ</span>
+                                <span class="free-shipping">MIỄN PHÍ</span>
+                            </span>
+                        </div>
+
+                        <div class="summary-divider"></div>
+
+                        <div class="summary-row total-row">
+                            <span>Tổng cộng:</span>
+                            <span class="total-amount">1.990.000đ</span>
+                        </div>
+
+                        <!-- Voucher -->
+                        <div class="voucher-section">
+                            <h4>Mã Giảm Giá</h4>
+                            <div class="voucher-input">
+                                <input type="text" placeholder="Nhập mã giảm giá..." class="voucher-code">
+                                <button class="voucher-apply-btn">Áp Dụng</button>
+                            </div>
+                            <div class="available-vouchers">
+                                <div class="voucher-item">
+                                    <div class="voucher-info">
+                                        <!-- TODO (Người 3): Voucher code nên dynamic theo năm nếu muốn đổi mỗi mùa Tết -->
+                                        <span class="voucher-code-text">NEWYEAR<span th:text="${tetYear}">2025</span></span>
+                                        <span class="voucher-desc">Giảm 10% đơn hàng từ 1 triệu</span>
+                                    </div>
+                                    <button class="voucher-select">Chọn</button>
+                                </div>
+                                <div class="voucher-item">
+                                    <div class="voucher-info">
+                                        <span class="voucher-code-text">FREESHIP</span>
+                                        <span class="voucher-desc">Miễn phí vận chuyển</span>
+                                    </div>
+                                    <button class="voucher-select">Chọn</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Checkout Button -->
+                        <button class="checkout-btn">
+                            <i class="fas fa-credit-card"></i>
+                            Tiến Hành Thanh Toán
+                        </button>
+
+                        <!-- Security Info -->
+                        <div class="security-info">
+                            <div class="security-item">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>Bảo mật thanh toán 100%</span>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-undo"></i>
+                                <span>Đổi trả trong 7 ngày</span>
+                            </div>
+                            <div class="security-item">
+                                <i class="fas fa-shipping-fast"></i>
+                                <span>Giao hàng nhanh 24h</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommendations -->
+            <div class="recommendations">
+                <h2 class="section-title">Có Thể Bạn Quan Tâm</h2>
+                <div class="recommendations-grid">
+                    <div class="recommendation-item">
+                        <div class="rec-image">
+                            <img src="https://picsum.photos/200/200?random=5" alt="Sản phẩm gợi ý">
+                        </div>
+                        <div class="rec-info">
+                            <h4>Mứt Dừa Non 500g</h4>
+                            <div class="rec-price">150.000đ</div>
+                            <button class="rec-add-btn">
+                                <i class="fas fa-plus"></i>
+                                Thêm Vào Giỏ
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-item">
+                        <div class="rec-image">
+                            <img src="https://picsum.photos/200/200?random=6" alt="Sản phẩm gợi ý">
+                        </div>
+                        <div class="rec-info">
+                            <h4>Bánh Chưng Gói Lá Chuối</h4>
+                            <div class="rec-price">200.000đ</div>
+                            <button class="rec-add-btn">
+                                <i class="fas fa-plus"></i>
+                                Thêm Vào Giỏ
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-item">
+                        <div class="rec-image">
+                            <img src="https://picsum.photos/200/200?random=7" alt="Sản phẩm gợi ý">
+                        </div>
+                        <div class="rec-info">
+                            <h4>Chùm Nho Tài Lộc</h4>
+                            <div class="rec-price">80.000đ</div>
+                            <button class="rec-add-btn">
+                                <i class="fas fa-plus"></i>
+                                Thêm Vào Giỏ
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="recommendation-item">
+                        <div class="rec-image">
+                            <img src="https://picsum.photos/200/200?random=8" alt="Sản phẩm gợi ý">
+                        </div>
+                        <div class="rec-info">
+                            <h4>Hoa Mai Vàng Trang Trí</h4>
+                            <div class="rec-price">120.000đ</div>
+                            <button class="rec-add-btn">
+                                <i class="fas fa-plus"></i>
+                                Thêm Vào Giỏ
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
+    </section>
+
+    <!-- Footer -->
+    <th:block th:replace="~{fragments/layout :: footer}"></th:block>
+
+    <!-- Scripts -->
+    <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
+    <script>
+        function updateQuantity(itemId, change) {
+            const input = document.querySelector(`#item-${itemId} .quantity-input`);
+            let currentValue = parseInt(input.value);
+            let newValue = currentValue + change;
+
+            if (newValue >= 1 && newValue <= 99) {
+                input.value = newValue;
+                updateItemTotal(itemId);
+                updateCartTotal();
+            }
+        }
+
+        function updateItemTotal(itemId) {
+            console.log('Update item total for item:', itemId);
+        }
+
+        function updateCartTotal() {
+            console.log('Update cart total');
+        }
+
+        function removeItem(itemId) {
+            if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')) {
+                const item = document.querySelector(`#item-${itemId}`);
+                if (item) {
+                    item.remove();
+                    updateCartTotal();
+                }
+            }
+        }
+
+        function selectAll() {
+            console.log('Select all items');
+        }
+
+        function clearCart() {
+            if (confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm trong giỏ hàng?')) {
+                console.log('Clear cart');
+            }
+        }
+    </script>
 </body>
 </html>
-

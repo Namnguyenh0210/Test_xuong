@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 
 /**
  * ENTITY DIA CHI
- * Người 1 - Database Design & Backend Core
- * Mapping với bảng DiaChi trong database WebBanHangTet
+ * Người 1 - Database Design & Backend Core (Skeleton bổ sung 03/10/2025)
+ * Mapping với bảng DiaChi
  */
 @Entity
 @Table(name = "DiaChi")
@@ -26,44 +26,24 @@ public class DiaChi {
     @Column(name = "MacDinh")
     private Boolean macDinh = false;
 
-    // Constructors
     public DiaChi() {}
 
-    public DiaChi(TaiKhoan taiKhoan, String diaChiChiTiet) {
+    public DiaChi(TaiKhoan taiKhoan, String diaChiChiTiet, Boolean macDinh) {
         this.taiKhoan = taiKhoan;
         this.diaChiChiTiet = diaChiChiTiet;
-    }
-
-    // Getters and Setters
-    public Integer getMaDC() {
-        return maDC;
-    }
-
-    public void setMaDC(Integer maDC) {
-        this.maDC = maDC;
-    }
-
-    public TaiKhoan getTaiKhoan() {
-        return taiKhoan;
-    }
-
-    public void setTaiKhoan(TaiKhoan taiKhoan) {
-        this.taiKhoan = taiKhoan;
-    }
-
-    public String getDiaChiChiTiet() {
-        return diaChiChiTiet;
-    }
-
-    public void setDiaChiChiTiet(String diaChiChiTiet) {
-        this.diaChiChiTiet = diaChiChiTiet;
-    }
-
-    public Boolean getMacDinh() {
-        return macDinh;
-    }
-
-    public void setMacDinh(Boolean macDinh) {
         this.macDinh = macDinh;
     }
+
+    public Integer getMaDC() { return maDC; }
+    public void setMaDC(Integer maDC) { this.maDC = maDC; }
+
+    public TaiKhoan getTaiKhoan() { return taiKhoan; }
+    public void setTaiKhoan(TaiKhoan taiKhoan) { this.taiKhoan = taiKhoan; }
+
+    public String getDiaChiChiTiet() { return diaChiChiTiet; }
+    public void setDiaChiChiTiet(String diaChiChiTiet) { this.diaChiChiTiet = diaChiChiTiet; }
+
+    public Boolean getMacDinh() { return macDinh; }
+    public void setMacDinh(Boolean macDinh) { this.macDinh = macDinh; }
 }
+

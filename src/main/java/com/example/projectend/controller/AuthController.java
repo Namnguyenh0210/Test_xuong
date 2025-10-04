@@ -1,6 +1,7 @@
 package com.example.projectend.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
@@ -21,7 +22,10 @@ public class AuthController {
 
     // TODO: Người 2 - Trang đăng nhập
     @GetMapping("/login")
-    public String login() {
+    public String login(Model model) {
+        // Add current page for navigation active state
+        model.addAttribute("currentPage", "login");
+
         // TODO: NGƯỜI 2 - Thêm logic kiểm tra user đã đăng nhập chưa
         // if (SecurityContextHolder.getContext().getAuthentication().isAuthenticated()) {
         //     return "redirect:/";

@@ -3,71 +3,45 @@ package com.example.projectend.entity;
 import jakarta.persistence.*;
 
 /**
- * ENTITY GIO HANG
- * Người 1 - Database Design & Backend Core
- * Mapping với bảng GioHang trong database WebBanHangTet
+ * ENTITY GIO HANG (Composite Key MaTK + MaSP)
+ * Người 1 - Database Design & Backend Core (Bổ sung 03/10/2025)
  */
 @Entity
-@Table(name = "GioHang", uniqueConstraints = {
-    @UniqueConstraint(columnNames = {"MaTK", "MaSP"})
-})
+@Table(name = "GioHang")
 public class GioHang {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "MaGH")
-    private Integer maGH;
+    @EmbeddedId
+    private GioHangId id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaTK", nullable = false)
+    @MapsId("taiKhoanId")
+    @JoinColumn(name = "MaTK")
     private TaiKhoan taiKhoan;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "MaSP", nullable = false)
+    @MapsId("sanPhamId")
+    @JoinColumn(name = "MaSP")
     private SanPham sanPham;
 
     @Column(name = "SoLuong", nullable = false)
     private Integer soLuong;
 
-    // Constructors
     public GioHang() {}
 
     public GioHang(TaiKhoan taiKhoan, SanPham sanPham, Integer soLuong) {
         this.taiKhoan = taiKhoan;
         this.sanPham = sanPham;
         this.soLuong = soLuong;
+        this.id = new GioHangId(taiKhoan.getMaTK(), sanPham.getMaSP());
     }
 
-    // Getters and Setters
-    public Integer getMaGH() {
-        return maGH;
-    }
-
-    public void setMaGH(Integer maGH) {
-        this.maGH = maGH;
-    }
-
-    public TaiKhoan getTaiKhoan() {
-        return taiKhoan;
-    }
-
-    public void setTaiKhoan(TaiKhoan taiKhoan) {
-        this.taiKhoan = taiKhoan;
-    }
-
-    public SanPham getSanPham() {
-        return sanPham;
-    }
-
-    public void setSanPham(SanPham sanPham) {
-        this.sanPham = sanPham;
-    }
-
-    public Integer getSoLuong() {
-        return soLuong;
-    }
-
-    public void setSoLuong(Integer soLuong) {
-        this.soLuong = soLuong;
-    }
+    public GioHangId getId() { return id; }
+    public void setId(GioHangId id) { this.id = id; }
+    public TaiKhoan getTaiKhoan() { return taiKhoan; }
+    public void setTaiKhoan(TaiKhoan taiKhoan) { this.taiKhoan = taiKhoan; }
+    public SanPham getSanPham() { return sanPham; }
+    public void setSanPham(SanPham sanPham) { this.sanPham = sanPham; }
+    public Integer getSoLuong() { return soLuong; }
+    public void setSoLuong(Integer soLuong) { this.soLuong = soLuong; }
 }
+

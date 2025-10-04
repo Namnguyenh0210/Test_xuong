@@ -24,23 +24,10 @@ public class ProfileController {
     // TODO: Người 2 - Trang thông tin cá nhân
     @GetMapping("/profile")
     public String profile(Model model) {
-        // TODO: NGƯỜI 2 - Lấy thông tin user đang đăng nhập
-        // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        // String email = auth.getName();
-        // TaiKhoan currentUser = taiKhoanService.findByEmail(email);
-        // model.addAttribute("taiKhoan", currentUser);
+        // Add current page for navigation active state
+        model.addAttribute("currentPage", "profile");
 
-        // TODO: NGƯỜI 2 - Lấy lịch sử đơn hàng của user (5 đơn gần nhất)
-        // List<DonHang> recentOrders = donHangService.getRecentOrdersByUser(currentUser, 5);
-        // model.addAttribute("recentOrders", recentOrders);
-
-        // TODO: NGƯỜI 2 - Thống kê cơ bản của user
-        // Long totalOrders = donHangService.countOrdersByUser(currentUser);
-        // BigDecimal totalSpent = donHangService.calculateTotalSpentByUser(currentUser);
-        // model.addAttribute("totalOrders", totalOrders);
-        // model.addAttribute("totalSpent", totalSpent);
-
-        model.addAttribute("pageTitle", "Thông tin cá nhân");
+        model.addAttribute("pageTitle", "Thông tin cá nhân - Cửa hàng đồ Tết");
         return "profile";
     }
 

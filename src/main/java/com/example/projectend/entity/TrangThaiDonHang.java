@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 
 /**
  * ENTITY TRANG THAI DON HANG
- * Người 1 - Database Design & Backend Core
- * Mapping với bảng TrangThaiDonHang trong database WebBanHangTet
+ * Người 1 - Database Design & Backend Core (Bổ sung 03/10/2025)
  */
 @Entity
 @Table(name = "TrangThaiDonHang")
@@ -19,27 +18,13 @@ public class TrangThaiDonHang {
     @Column(name = "TenTTDH", nullable = false, length = 50)
     private String tenTTDH;
 
-    // Constructors
     public TrangThaiDonHang() {}
 
-    public TrangThaiDonHang(String tenTTDH) {
-        this.tenTTDH = tenTTDH;
-    }
+    public TrangThaiDonHang(String tenTTDH) { this.tenTTDH = tenTTDH; }
 
-    // Getters and Setters
-    public Integer getMaTTDH() {
-        return maTTDH;
-    }
-
-    public void setMaTTDH(Integer maTTDH) {
-        this.maTTDH = maTTDH;
-    }
-
-    public String getTenTTDH() {
-        return tenTTDH;
-    }
-
-    public void setTenTTDH(String tenTTDH) {
-        this.tenTTDH = tenTTDH;
-    }
+    public Integer getMaTTDH() { return maTTDH; }
+    public void setMaTTDH(Integer maTTDH) { this.maTTDH = maTTDH; }
+    public String getTenTTDH() { return tenTTDH; }
+    public void setTenTTDH(String tenTTDH) { this.tenTTDH = tenTTDH; }
 }
+

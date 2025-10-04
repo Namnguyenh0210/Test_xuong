@@ -23,6 +23,9 @@ public class SanPhamController {
     // TODO: Người 3 - Trang danh sách sản phẩm
     @GetMapping("/sanpham")
     public String sanPham(Model model) {
+        // Add current page for navigation active state
+        model.addAttribute("currentPage", "sanpham");
+
         // TODO: NGƯỜI 3 - Lấy danh sách tất cả sản phẩm (có phân trang)
         // Pageable pageable = PageRequest.of(page, size);
         // Page<SanPham> sanPhamPage = sanPhamService.getAllProducts(pageable);

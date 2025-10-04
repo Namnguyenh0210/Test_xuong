@@ -3,6 +3,9 @@ package com.example.projectend.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * KIEN THUC CONTROLLER - Trang kiến thức về văn hóa Tết
@@ -21,6 +24,17 @@ public class KienThucController {
 
     @GetMapping("/kienthuc")
     public String kienThuc(Model model) {
+        // Add current page for navigation active state
+        model.addAttribute("currentPage", "kienthuc");
+
+        // Add breadcrumb data - using HashMap to allow null values
+        Map<String, String> breadcrumbItem = new HashMap<>();
+        breadcrumbItem.put("name", "Kiến Thức");
+        breadcrumbItem.put("url", null);
+
+        List<Map<String, String>> breadcrumbItems = List.of(breadcrumbItem);
+        model.addAttribute("breadcrumbItems", breadcrumbItems);
+
         // TODO: NGƯỜI 3 - Lấy danh sách bài viết từ database (có phân trang)
         // Pageable pageable = PageRequest.of(page, size);
         // Page<BaiViet> baiVietPage = baiVietService.getAllBaiViet(pageable);
@@ -34,7 +48,9 @@ public class KienThucController {
         // List<String> popularTags = baiVietService.getPopularTags();
         // model.addAttribute("popularTags", popularTags);
 
-        model.addAttribute("pageTitle", "Kiến thức Tết - Văn hóa truyền thống");
+        model.addAttribute("pageTitle", "Kiến thức - Cửa hàng đồ Tết");
+        model.addAttribute("tetYear", "2025");
+
         return "kienthuc";
     }
 
@@ -45,15 +61,7 @@ public class KienThucController {
     //     if (baiViet == null) {
     //         return "redirect:/kienthuc?notfound";
     //     }
-    //
-    //     // Tăng lượt xem
-    //     baiVietService.increaseViewCount(id);
-    //
-    //     // Lấy bài viết liên quan
-    //     List<BaiViet> relatedPosts = baiVietService.getRelatedPosts(baiViet.getTags(), 4);
-    //
     //     model.addAttribute("baiViet", baiViet);
-    //     model.addAttribute("relatedPosts", relatedPosts);
     //     return "kienthuc-detail";
     // }
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 /**
  * SAN PHAM REPOSITORY
  * Người 1 - Database Design & Backend Core (ĐÃ HOÀN THÀNH)
+ * NOTE 04/10/2025: ĐÃ GỬ các TODO liên quan TrangThaiSanPham vì schema hiện tại không có cột MaTTSP và tính năng trạng thái đã bị xoá.
  * Repository cho entity SanPham
  */
 @Repository
@@ -18,9 +19,6 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
 
     // TODO: NGƯỜI 3 - Thêm method tìm sản phẩm theo loại (cho menu danh mục)
     // List<SanPham> findByLoaiSanPham(LoaiSanPham loai);
-
-    // TODO: NGƯỜI 3 - Thêm method tìm sản phẩm theo trạng thái (còn hàng)
-    // List<SanPham> findByTrangThaiSanPham(TrangThaiSanPham trangThai);
 
     // TODO: NGƯỜI 3 - Thêm method tìm kiếm sản phẩm theo tên
     // List<SanPham> findByTenSPContaining(String keyword);
@@ -35,13 +33,9 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Integer> {
     // TODO: NGƯỜI 4 - Admin Panel & Product Management
     // ========================================
 
-    // TODO: NGƯỜI 4 - Thêm method thống kê sản phẩm theo trạng thái
-    // Long countByTrangThaiSanPham(TrangThaiSanPham trangThai);
-
     // TODO: NGƯỜI 4 - Thêm method tìm sản phẩm sắp hết hàng
     // List<SanPham> findBySoLuongLessThan(Integer threshold);
 
     // TODO: NGƯỜI 4 - Thêm method tìm sản phẩm theo khoảng thời gian tạo
     // List<SanPham> findByNgayTaoBetween(LocalDateTime start, LocalDateTime end);
-
 }

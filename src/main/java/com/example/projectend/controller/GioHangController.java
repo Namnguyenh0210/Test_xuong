@@ -24,22 +24,8 @@ public class GioHangController {
     // TODO: Người 3 - Trang giỏ hàng
     @GetMapping("/giohang")
     public String gioHang(Model model) {
-        // TODO: NGƯỜI 3 - Lấy user đang đăng nhập
-        // Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        // String email = auth.getName();
-        // TaiKhoan currentUser = taiKhoanService.findByEmail(email);
-
-        // TODO: NGƯỜI 3 - Lấy giỏ hàng của user hiện tại
-        // List<GioHang> gioHangItems = gioHangService.getCartItems(currentUser);
-        // model.addAttribute("gioHangItems", gioHangItems);
-
-        // TODO: NGƯỜI 3 - Tính tổng tiền giỏ hàng
-        // BigDecimal totalAmount = gioHangService.calculateTotal(currentUser);
-        // model.addAttribute("totalAmount", totalAmount);
-
-        // TODO: NGƯỜI 3 - Đếm số lượng items trong giỏ
-        // Long itemCount = gioHangService.countItems(currentUser);
-        // model.addAttribute("itemCount", itemCount);
+        // Add current page for navigation active state
+        model.addAttribute("currentPage", "giohang");
 
         model.addAttribute("pageTitle", "Giỏ hàng - Cửa hàng đồ Tết");
         return "giohang";
