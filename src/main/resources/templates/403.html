@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layouts/base}">
+<head>
+    <title>Truy Cập Bị Từ Chối - 403</title>
+    <link rel="stylesheet" th:href="@{/css/login1.css}">
+</head>
+
+<body>
+<div layout:fragment="content">
+    <div class="login-container">
+        <div class="login-form" style="text-align: center;">
+            <h2 style="color: #dc3545;">⛔ Truy Cập Bị Từ Chối</h2>
+
+            <div style="margin: 30px 0;">
+                <p>Bạn không có quyền truy cập vào trang này.</p>
+                <p>Vui lòng đăng nhập với tài khoản có quyền phù hợp.</p>
+            </div>
+
+            <div class="login-links">
+                <a th:href="@{/}" class="btn-login" style="display: inline-block; text-decoration: none;">
+                    🏠 Về Trang Chủ
+                </a>
+                <br><br>
+                <a th:href="@{/login}">Đăng nhập với tài khoản khác</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -2,174 +2,933 @@
 <html lang="vi" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{fragments/layout :: head('Giỏ Hàng')}"></th:block>
-    <link rel="stylesheet" th:href="@{/css/giohang.css}">
+    <style>
+        /* Cart Page Specific Styles - Integrated with Main Theme */
+        body {
+            background: linear-gradient(135deg, var(--gray-100) 0%, var(--white) 100%);
+        }
+
+        /* Cart Header */
+        .cart-header-section {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: var(--white);
+            padding: var(--spacing-2xl) 0;
+            margin-bottom: var(--spacing-2xl);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cart-header-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                radial-gradient(circle at 20% 80%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(251, 191, 36, 0.1) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        .cart-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: var(--spacing-lg);
+            position: relative;
+            z-index: 2;
+        }
+
+        .cart-title .icon {
+            color: var(--primary-gold);
+            margin-right: var(--spacing-md);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* Progress Steps */
+        .cart-progress {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: var(--spacing-md);
+            position: relative;
+            z-index: 2;
+        }
+
+        .progress-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: all 0.3s ease;
+        }
+
+        .progress-step.active .step-icon {
+            background: var(--primary-gold);
+            color: var(--dark-red);
+            transform: scale(1.1);
+        }
+
+        .progress-step.active span {
+            color: var(--primary-gold);
+            font-weight: 700;
+        }
+
+        .step-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.125rem;
+            transition: all 0.3s ease;
+        }
+
+        .progress-line {
+            width: 60px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+
+        .progress-line::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 30%;
+            background: var(--primary-gold);
+            animation: progress-flow 3s ease-in-out infinite;
+        }
+
+        @keyframes progress-flow {
+            0%, 100% { width: 30%; }
+            50% { width: 70%; }
+        }
+
+        /* Main Content */
+        .cart-content {
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: var(--spacing-2xl);
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        /* Cart Items */
+        .cart-items {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+        }
+
+        .table-header {
+            background: linear-gradient(135deg, var(--gray-100), var(--white));
+            padding: var(--spacing-lg);
+            border-bottom: 2px solid var(--gray-200);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 80px;
+            gap: var(--spacing-md);
+            font-weight: 700;
+            color: var(--gray-700);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Cart Item */
+        .cart-item {
+            padding: var(--spacing-lg);
+            border-bottom: 1px solid var(--gray-100);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr 80px;
+            gap: var(--spacing-md);
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .cart-item:hover {
+            background: var(--gray-50);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Product Info */
+        .item-product {
+            display: flex;
+            gap: var(--spacing-md);
+            align-items: center;
+        }
+
+        .product-image {
+            width: 80px;
+            height: 80px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 2px solid var(--gray-200);
+            flex-shrink: 0;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .product-image:hover img {
+            transform: scale(1.1);
+        }
+
+        .product-info h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-xs);
+            line-height: 1.4;
+        }
+
+        .product-category {
+            color: var(--gray-500);
+            font-size: 0.875rem;
+            margin-bottom: var(--spacing-xs);
+        }
+
+        .product-attributes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: var(--spacing-xs);
+        }
+
+        .attribute {
+            background: var(--gray-100);
+            color: var(--gray-600);
+            padding: 2px 8px;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        /* Price */
+        .item-price {
+            text-align: center;
+        }
+
+        .current-price {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            display: block;
+        }
+
+        .original-price {
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            text-decoration: line-through;
+            display: block;
+            margin-top: 2px;
+        }
+
+        /* Quantity Controls */
+        .item-quantity {
+            display: flex;
+            justify-content: center;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            background: var(--gray-100);
+            border-radius: var(--radius-lg);
+            padding: 4px;
+        }
+
+        .quantity-btn {
+            width: 32px;
+            height: 32px;
+            border: none;
+            background: var(--white);
+            color: var(--gray-600);
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .quantity-btn:hover {
+            background: var(--primary-red);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .quantity-input {
+            width: 50px;
+            height: 32px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            font-weight: 600;
+            color: var(--gray-900);
+            font-size: 1rem;
+        }
+
+        .quantity-input:focus {
+            outline: none;
+        }
+
+        /* Item Total */
+        .item-total {
+            text-align: center;
+        }
+
+        .total-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        /* Item Actions */
+        .item-action {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-xs);
+            align-items: center;
+        }
+
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            font-size: 0.875rem;
+        }
+
+        .save-later {
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .save-later:hover {
+            background: var(--primary-gold);
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        .remove-item {
+            background: var(--gray-100);
+            color: var(--gray-600);
+        }
+
+        .remove-item:hover {
+            background: #dc2626;
+            color: var(--white);
+            transform: scale(1.1);
+        }
+
+        /* Cart Actions */
+        .cart-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-lg);
+            background: var(--gray-50);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .left-actions,
+        .right-actions {
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        /* Cart Summary */
+        .cart-summary {
+            position: sticky;
+            top: var(--spacing-lg);
+            height: fit-content;
+        }
+
+        .summary-card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+            overflow: hidden;
+        }
+
+        .summary-title {
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: var(--white);
+            padding: var(--spacing-lg);
+            text-align: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .summary-content {
+            padding: var(--spacing-lg);
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        .summary-row:last-child {
+            border-bottom: none;
+            padding-top: var(--spacing-md);
+            margin-top: var(--spacing-md);
+            border-top: 2px solid var(--gray-200);
+            font-size: 1.125rem;
+            font-weight: 700;
+        }
+
+        .summary-label {
+            color: var(--gray-600);
+            font-weight: 500;
+        }
+
+        .summary-value {
+            font-weight: 600;
+            color: var(--gray-900);
+        }
+
+        .discount {
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        .total-amount {
+            color: var(--primary-red);
+            font-size: 1.25rem;
+            font-weight: 800;
+        }
+
+        .shipping-fee .original-fee {
+            text-decoration: line-through;
+            color: var(--gray-400);
+            margin-right: var(--spacing-xs);
+        }
+
+        .free-shipping {
+            color: #16a34a;
+            font-weight: 700;
+        }
+
+        /* Voucher Section */
+        .voucher-section {
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-lg);
+            background: var(--gray-50);
+            border-radius: var(--radius-lg);
+        }
+
+        .voucher-section h4 {
+            margin-bottom: var(--spacing-md);
+            color: var(--gray-700);
+            font-weight: 700;
+        }
+
+        .voucher-input {
+            display: flex;
+            gap: var(--spacing-sm);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .voucher-code {
+            flex: 1;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: 2px solid var(--gray-300);
+            border-radius: var(--radius-md);
+            font-size: 0.875rem;
+        }
+
+        .voucher-code:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+
+        .voucher-apply-btn {
+            padding: var(--spacing-sm) var(--spacing-md);
+            background: var(--primary-red);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .voucher-apply-btn:hover {
+            background: var(--dark-red);
+            transform: translateY(-1px);
+        }
+
+        .available-vouchers {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .voucher-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm);
+            background: var(--white);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--gray-200);
+        }
+
+        .voucher-code-text {
+            font-weight: 700;
+            color: var(--primary-red);
+        }
+
+        .voucher-desc {
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .voucher-select {
+            padding: 4px 12px;
+            background: var(--primary-gold);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .voucher-select:hover {
+            background: #f59e0b;
+            transform: scale(1.05);
+        }
+
+        /* Checkout Button */
+        .checkout-btn {
+            width: 100%;
+            padding: var(--spacing-lg);
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-lg);
+            font-size: 1.125rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: var(--spacing-lg) 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .checkout-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .checkout-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.4);
+        }
+
+        .checkout-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Security Info */
+        .security-info {
+            display: flex;
+            flex-direction: column;
+            gap: var(--spacing-sm);
+        }
+
+        .security-item {
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            color: var(--gray-600);
+            font-size: 0.875rem;
+        }
+
+        .security-item i {
+            color: var(--primary-red);
+        }
+
+        /* Recommendations */
+        .recommendations {
+            margin-top: var(--spacing-3xl);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            text-align: center;
+            margin-bottom: var(--spacing-2xl);
+        }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+        }
+
+        .recommendation-item {
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+        }
+
+        .recommendation-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .rec-image {
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .rec-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .recommendation-item:hover .rec-image img {
+            transform: scale(1.1);
+        }
+
+        .rec-info {
+            padding: var(--spacing-md);
+            text-align: center;
+        }
+
+        .rec-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            color: var(--gray-900);
+        }
+
+        .rec-price {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--primary-red);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .rec-add-btn {
+            width: 100%;
+            padding: var(--spacing-sm);
+            background: var(--primary-gold);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .rec-add-btn:hover {
+            background: #f59e0b;
+            transform: translateY(-1px);
+        }
+
+        /* Development Notice Styles */
+        .development-notice {
+            padding: var(--spacing-3xl);
+            text-align: center;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            border: 2px dashed var(--gray-300);
+            border-radius: var(--radius-xl);
+            margin: var(--spacing-xl);
+        }
+
+        .notice-content {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .notice-icon {
+            font-size: 4rem;
+            color: var(--primary-red);
+            margin-bottom: var(--spacing-lg);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .notice-info h3 {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--gray-900);
+            margin-bottom: var(--spacing-md);
+        }
+
+        .notice-info p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            margin-bottom: var(--spacing-2xl);
+            line-height: 1.6;
+        }
+
+        .notice-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: var(--spacing-lg);
+            margin: var(--spacing-2xl) 0;
+        }
+
+        .notice-features .feature-item {
+            background: var(--white);
+            padding: var(--spacing-lg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-md);
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary-red);
+        }
+
+        .notice-features .feature-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .notice-features .feature-item i {
+            font-size: 2rem;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .notice-features .feature-item span {
+            font-weight: 600;
+            color: var(--gray-700);
+            display: block;
+        }
+
+        .text-warning { color: #f59e0b !important; }
+        .text-info { color: #3b82f6 !important; }
+        .text-success { color: #10b981 !important; }
+
+        .notice-actions {
+            display: flex;
+            gap: var(--spacing-md);
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: var(--spacing-xl);
+        }
+
+        .notice-actions .btn {
+            padding: var(--spacing-md) var(--spacing-xl);
+            font-weight: 600;
+            border-radius: var(--radius-lg);
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .cart-content {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-xl);
+            }
+
+            .cart-summary {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cart-title {
+                font-size: 1.75rem;
+            }
+
+            .progress-step span {
+                font-size: 0.875rem;
+            }
+
+            .table-header,
+            .cart-item {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-sm);
+                text-align: center;
+            }
+
+            .item-product {
+                justify-content: center;
+            }
+
+            .cart-actions {
+                flex-direction: column;
+                gap: var(--spacing-md);
+            }
+
+            .left-actions,
+            .right-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .recommendations-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--gray-300);
+            border-radius: 50%;
+            border-top-color: var(--primary-red);
+            animation: spin 1s ease-in-out infinite;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
     <th:block th:replace="~{fragments/layout :: header}"></th:block>
 
-    <!-- Breadcrumb -->
-    <th:block th:replace="~{fragments/layout :: breadcrumb(${[{name:'Giỏ Hàng'}]})}"></th:block>
+    <!-- Cart Header -->
+    <div class="cart-header-section">
+        <div class="container">
+            <h1 class="cart-title">
+                <span class="icon">🛒</span>
+                Giỏ Hàng Của Bạn
+            </h1>
+            <div class="cart-progress">
+                <div class="progress-step active">
+                    <div class="step-icon">1</div>
+                    <span>Giỏ Hàng</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="step-icon">2</div>
+                    <span>Thanh Toán</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step">
+                    <div class="step-icon">3</div>
+                    <span>Hoàn Tất</span>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Cart Section -->
     <section class="cart-section">
         <div class="container">
-            <div class="cart-header">
-                <h1>🛒 Giỏ Hàng Của Bạn</h1>
-                <div class="cart-progress">
-                    <div class="progress-step active">
-                        <div class="step-icon">1</div>
-                        <span>Giỏ Hàng</span>
-                    </div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step">
-                        <div class="step-icon">2</div>
-                        <span>Thanh Toán</span>
-                    </div>
-                    <div class="progress-line"></div>
-                    <div class="progress-step">
-                        <div class="step-icon">3</div>
-                        <span>Hoàn Tất</span>
-                    </div>
-                </div>
-            </div>
-
             <div class="cart-content">
                 <!-- Cart Items -->
                 <div class="cart-items">
                     <div class="cart-table">
                         <div class="table-header">
-                            <div class="header-item product-col">Sản Phẩm</div>
-                            <div class="header-item price-col">Đơn Giá</div>
-                            <div class="header-item quantity-col">Số Lượng</div>
-                            <div class="header-item total-col">Thành Tiền</div>
-                            <div class="header-item action-col">Thao Tác</div>
+                            <div class="header-item">Sản Phẩm</div>
+                            <div class="header-item">Đơn Giá</div>
+                            <div class="header-item">Số Lượng</div>
+                            <div class="header-item">Thành Tiền</div>
+                            <div class="header-item">Thao Tác</div>
                         </div>
 
-                        <!-- Cart Items -->
-                        <div class="cart-item" id="item-1">
-                            <div class="item-product">
-                                <div class="product-image">
-                                    <img src="https://picsum.photos/100/100?random=1" alt="Giỏ quà Tết An Khang">
+                        <!-- Development Notice - Replace sample data -->
+                        <div class="development-notice">
+                            <div class="notice-content">
+                                <div class="notice-icon">
+                                    <i class="fas fa-tools"></i>
                                 </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Giỏ Quà Tết An Khang</h3>
-                                    <p class="product-category">Giỏ Quà Tết</p>
-                                    <div class="product-attributes">
-                                        <span class="attribute">Kích thước: Lớn</span>
-                                        <span class="attribute">Màu sắc: Đỏ vàng</span>
+                                <div class="notice-info">
+                                    <h3>Tính Năng Đang Phát Triển</h3>
+                                    <p>Giỏ hàng đang được tích hợp với cơ sở dữ liệu. Hiện tại chưa có sản phẩm thực tế được hiển thị.</p>
+                                    <div class="notice-features">
+                                        <div class="feature-item">
+                                            <i class="fas fa-database text-warning"></i>
+                                            <span>Kết nối Database</span>
+                                        </div>
+                                        <div class="feature-item">
+                                            <i class="fas fa-shopping-cart text-info"></i>
+                                            <span>Quản lý giỏ hàng</span>
+                                        </div>
+                                        <div class="feature-item">
+                                            <i class="fas fa-credit-card text-success"></i>
+                                            <span>Thanh toán online</span>
+                                        </div>
+                                    </div>
+                                    <div class="notice-actions">
+                                        <a href="/sanpham" class="btn btn-primary">
+                                            <i class="fas fa-shopping-bag"></i>
+                                            Xem Sản Phẩm
+                                        </a>
+                                        <a href="/" class="btn btn-secondary">
+                                            <i class="fas fa-home"></i>
+                                            Về Trang Chủ
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="item-price">
-                                <span class="current-price">400.000đ</span>
-                                <span class="original-price">500.000đ</span>
-                            </div>
-                            <div class="item-quantity">
-                                <div class="quantity-controls">
-                                    <button class="quantity-btn minus" onclick="updateQuantity(1, -1)">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <input type="number" class="quantity-input" value="2" min="1" max="99">
-                                    <button class="quantity-btn plus" onclick="updateQuantity(1, 1)">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="item-total">
-                                <span class="total-price">800.000đ</span>
-                            </div>
-                            <div class="item-action">
-                                <button class="action-btn save-later" title="Lưu để mua sau">
-                                    <i class="fas fa-heart"></i>
-                                </button>
-                                <button class="action-btn remove-item" title="Xóa sản phẩm" onclick="removeItem(1)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Cart Item 2 -->
-                        <div class="cart-item" id="item-2">
-                            <div class="item-product">
-                                <div class="product-image">
-                                    <img src="https://picsum.photos/100/100?random=2" alt="Hộp quà Tết Phát Tài">
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Hộp Quà Tết Phát Tài</h3>
-                                    <p class="product-category">Hộp Quà Tết</p>
-                                    <div class="product-attributes">
-                                        <span class="attribute">Loại: Cao cấp</span>
-                                        <span class="attribute">Gói quà: Sang trọng</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item-price">
-                                <span class="current-price">1.200.000đ</span>
-                            </div>
-                            <div class="item-quantity">
-                                <div class="quantity-controls">
-                                    <button class="quantity-btn minus" onclick="updateQuantity(2, -1)">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <input type="number" class="quantity-input" value="1" min="1" max="99">
-                                    <button class="quantity-btn plus" onclick="updateQuantity(2, 1)">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="item-total">
-                                <span class="total-price">1.200.000đ</span>
-                            </div>
-                            <div class="item-action">
-                                <button class="action-btn save-later" title="Lưu để mua sau">
-                                    <i class="fas fa-heart"></i>
-                                </button>
-                                <button class="action-btn remove-item" title="Xóa sản phẩm" onclick="removeItem(2)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Cart Item 3 -->
-                        <div class="cart-item" id="item-3">
-                            <div class="item-product">
-                                <div class="product-image">
-                                    <img src="https://picsum.photos/100/100?random=3" alt="Bao lì xì vàng">
-                                </div>
-                                <div class="product-info">
-                                    <h3 class="product-name">Bao Lì Xì Vàng <span th:text="${tetYear}">2025</span> (10 cái)</h3>
-                                    <p class="product-category">Trang Trí</p>
-                                    <div class="product-attributes">
-                                        <span class="attribute">Màu sắc: Vàng</span>
-                                        <span class="attribute">Số lượng: 10 cái/gói</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item-price">
-                                <span class="current-price">30.000đ</span>
-                            </div>
-                            <div class="item-quantity">
-                                <div class="quantity-controls">
-                                    <button class="quantity-btn minus" onclick="updateQuantity(3, -1)">
-                                        <i class="fas fa-minus"></i>
-                                    </button>
-                                    <input type="number" class="quantity-input" value="3" min="1" max="99">
-                                    <button class="quantity-btn plus" onclick="updateQuantity(3, 1)">
-                                        <i class="fas fa-plus"></i>
-                                    </button>
-                                </div>
-                            </div>
-                            <div class="item-total">
-                                <span class="total-price">90.000đ</span>
-                            </div>
-                            <div class="item-action">
-                                <button class="action-btn save-later" title="Lưu để mua sau">
-                                    <i class="fas fa-heart"></i>
-                                </button>
-                                <button class="action-btn remove-item" title="Xóa sản phẩm" onclick="removeItem(3)">
-                                    <i class="fas fa-trash"></i>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -199,77 +958,75 @@
                 <div class="cart-summary">
                     <div class="summary-card">
                         <h3 class="summary-title">Tóm Tắt Đơn Hàng</h3>
-
-                        <div class="summary-row">
-                            <span>Tạm tính (6 sản phẩm):</span>
-                            <span>2.090.000đ</span>
-                        </div>
-
-                        <div class="summary-row">
-                            <span>Giảm giá:</span>
-                            <span class="discount">-100.000đ</span>
-                        </div>
-
-                        <div class="summary-row">
-                            <span>Phí vận chuyển:</span>
-                            <span class="shipping-fee">
-                                <span class="original-fee">30.000đ</span>
-                                <span class="free-shipping">MIỄN PHÍ</span>
-                            </span>
-                        </div>
-
-                        <div class="summary-divider"></div>
-
-                        <div class="summary-row total-row">
-                            <span>Tổng cộng:</span>
-                            <span class="total-amount">1.990.000đ</span>
-                        </div>
-
-                        <!-- Voucher -->
-                        <div class="voucher-section">
-                            <h4>Mã Giảm Giá</h4>
-                            <div class="voucher-input">
-                                <input type="text" placeholder="Nhập mã giảm giá..." class="voucher-code">
-                                <button class="voucher-apply-btn">Áp Dụng</button>
+                        <div class="summary-content">
+                            <div class="summary-row">
+                                <span>Tạm tính (6 sản phẩm):</span>
+                                <span>2.090.000đ</span>
                             </div>
-                            <div class="available-vouchers">
-                                <div class="voucher-item">
-                                    <div class="voucher-info">
-                                        <!-- TODO (Người 3): Voucher code nên dynamic theo năm nếu muốn đổi mỗi mùa Tết -->
-                                        <span class="voucher-code-text">NEWYEAR<span th:text="${tetYear}">2025</span></span>
-                                        <span class="voucher-desc">Giảm 10% đơn hàng từ 1 triệu</span>
-                                    </div>
-                                    <button class="voucher-select">Chọn</button>
+
+                            <div class="summary-row">
+                                <span>Giảm giá:</span>
+                                <span class="discount">-100.000đ</span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Phí vận chuyển:</span>
+                                <span class="shipping-fee">
+                                    <span class="original-fee">30.000đ</span>
+                                    <span class="free-shipping">MIỄN PHÍ</span>
+                                </span>
+                            </div>
+
+                            <div class="summary-row">
+                                <span>Tổng cộng:</span>
+                                <span class="total-amount">1.990.000đ</span>
+                            </div>
+
+                            <!-- Voucher -->
+                            <div class="voucher-section">
+                                <h4>Mã Giảm Giá</h4>
+                                <div class="voucher-input">
+                                    <input type="text" placeholder="Nhập mã giảm giá..." class="voucher-code">
+                                    <button class="voucher-apply-btn" onclick="applyVoucher()">Áp Dụng</button>
                                 </div>
-                                <div class="voucher-item">
-                                    <div class="voucher-info">
-                                        <span class="voucher-code-text">FREESHIP</span>
-                                        <span class="voucher-desc">Miễn phí vận chuyển</span>
+                                <div class="available-vouchers">
+                                    <div class="voucher-item">
+                                        <div class="voucher-info">
+                                            <div class="voucher-code-text">NEWYEAR2025</div>
+                                            <div class="voucher-desc">Giảm 10% đơn hàng từ 1 triệu</div>
+                                        </div>
+                                        <button class="voucher-select" onclick="selectVoucher('NEWYEAR2025')">Chọn</button>
                                     </div>
-                                    <button class="voucher-select">Chọn</button>
+                                    <div class="voucher-item">
+                                        <div class="voucher-info">
+                                            <div class="voucher-code-text">FREESHIP</div>
+                                            <div class="voucher-desc">Miễn phí vận chuyển</div>
+                                        </div>
+                                        <button class="voucher-select" onclick="selectVoucher('FREESHIP')">Chọn</button>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <!-- Checkout Button -->
-                        <button class="checkout-btn">
-                            <i class="fas fa-credit-card"></i>
-                            Tiến Hành Thanh Toán
-                        </button>
+                            <!-- Checkout Button -->
+                            <button class="checkout-btn" onclick="checkout()">
+                                <i class="fas fa-credit-card"></i>
+                                Tiến Hành Thanh Toán
+                            </button>
 
-                        <!-- Security Info -->
-                        <div class="security-info">
-                            <div class="security-item">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>Bảo mật thanh toán 100%</span>
-                            </div>
-                            <div class="security-item">
-                                <i class="fas fa-undo"></i>
-                                <span>Đổi trả trong 7 ngày</span>
-                            </div>
-                            <div class="security-item">
-                                <i class="fas fa-shipping-fast"></i>
-                                <span>Giao hàng nhanh 24h</span>
+                            <!-- Security Info -->
+                            <div class="security-info">
+                                <div class="security-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Bảo mật thanh toán 100%</span>
+                                </div>
+                                <div class="security-item">
+                                    <i class="fas fa-undo"></i>
+                                    <span>Đổi trả trong 7 ngày</span>
+                                </div>
+                                <div class="security-item">
+                                    <i class="fas fa-shipping-fast"></i>
+                                    <span>Giao hàng nhanh 24h</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -282,12 +1039,12 @@
                 <div class="recommendations-grid">
                     <div class="recommendation-item">
                         <div class="rec-image">
-                            <img src="https://picsum.photos/200/200?random=5" alt="Sản phẩm gợi ý">
+                            <img src="https://picsum.photos/200/200?random=5" alt="Mứt Dừa Non 500g">
                         </div>
                         <div class="rec-info">
                             <h4>Mứt Dừa Non 500g</h4>
                             <div class="rec-price">150.000đ</div>
-                            <button class="rec-add-btn">
+                            <button class="rec-add-btn" onclick="addToCart(5)">
                                 <i class="fas fa-plus"></i>
                                 Thêm Vào Giỏ
                             </button>
@@ -296,12 +1053,12 @@
 
                     <div class="recommendation-item">
                         <div class="rec-image">
-                            <img src="https://picsum.photos/200/200?random=6" alt="Sản phẩm gợi ý">
+                            <img src="https://picsum.photos/200/200?random=6" alt="Bánh Chưng Gói Lá Chuối">
                         </div>
                         <div class="rec-info">
                             <h4>Bánh Chưng Gói Lá Chuối</h4>
                             <div class="rec-price">200.000đ</div>
-                            <button class="rec-add-btn">
+                            <button class="rec-add-btn" onclick="addToCart(6)">
                                 <i class="fas fa-plus"></i>
                                 Thêm Vào Giỏ
                             </button>
@@ -310,12 +1067,12 @@
 
                     <div class="recommendation-item">
                         <div class="rec-image">
-                            <img src="https://picsum.photos/200/200?random=7" alt="Sản phẩm gợi ý">
+                            <img src="https://picsum.photos/200/200?random=7" alt="Chùm Nho Tài Lộc">
                         </div>
                         <div class="rec-info">
                             <h4>Chùm Nho Tài Lộc</h4>
                             <div class="rec-price">80.000đ</div>
-                            <button class="rec-add-btn">
+                            <button class="rec-add-btn" onclick="addToCart(7)">
                                 <i class="fas fa-plus"></i>
                                 Thêm Vào Giỏ
                             </button>
@@ -324,12 +1081,12 @@
 
                     <div class="recommendation-item">
                         <div class="rec-image">
-                            <img src="https://picsum.photos/200/200?random=8" alt="Sản phẩm gợi ý">
+                            <img src="https://picsum.photos/200/200?random=8" alt="Hoa Mai Vàng Trang Trí">
                         </div>
                         <div class="rec-info">
                             <h4>Hoa Mai Vàng Trang Trí</h4>
                             <div class="rec-price">120.000đ</div>
-                            <button class="rec-add-btn">
+                            <button class="rec-add-btn" onclick="addToCart(8)">
                                 <i class="fas fa-plus"></i>
                                 Thêm Vào Giỏ
                             </button>
@@ -344,47 +1101,224 @@
     <th:block th:replace="~{fragments/layout :: footer}"></th:block>
 
     <!-- Scripts -->
-    <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
     <script>
+        // Cart functionality
         function updateQuantity(itemId, change) {
-            const input = document.querySelector(`#item-${itemId} .quantity-input`);
-            let currentValue = parseInt(input.value);
-            let newValue = currentValue + change;
+            const item = document.getElementById(`item-${itemId}`);
+            const quantityInput = item.querySelector('.quantity-input');
+            const currentQuantity = parseInt(quantityInput.value);
+            const newQuantity = Math.max(1, Math.min(99, currentQuantity + change));
 
-            if (newValue >= 1 && newValue <= 99) {
-                input.value = newValue;
-                updateItemTotal(itemId);
-                updateCartTotal();
-            }
+            quantityInput.value = newQuantity;
+            updateItemTotal(itemId, newQuantity);
+            updateCartSummary();
+
+            // Add loading effect
+            item.classList.add('loading');
+            setTimeout(() => item.classList.remove('loading'), 500);
+
+            showNotification(`Đã cập nhật số lượng thành ${newQuantity}`, 'success');
         }
 
-        function updateItemTotal(itemId) {
-            console.log('Update item total for item:', itemId);
-        }
+        function updateItemTotal(itemId, quantity) {
+            const item = document.getElementById(`item-${itemId}`);
+            const priceText = item.querySelector('.current-price').textContent;
+            const price = parseInt(priceText.replace(/[^\d]/g, ''));
+            const total = price * quantity;
 
-        function updateCartTotal() {
-            console.log('Update cart total');
+            item.querySelector('.total-price').textContent = formatPrice(total);
         }
 
         function removeItem(itemId) {
             if (confirm('Bạn có chắc chắn muốn xóa sản phẩm này khỏi giỏ hàng?')) {
-                const item = document.querySelector(`#item-${itemId}`);
-                if (item) {
+                const item = document.getElementById(`item-${itemId}`);
+                item.style.animation = 'slideOut 0.3s ease-out forwards';
+                setTimeout(() => {
                     item.remove();
-                    updateCartTotal();
-                }
+                    updateCartSummary();
+                    checkEmptyCart();
+                    showNotification('Đã xóa sản phẩm khỏi giỏ hàng', 'success');
+                }, 300);
             }
         }
 
         function selectAll() {
-            console.log('Select all items');
+            showNotification('Đã chọn tất cả sản phẩm', 'info');
         }
 
         function clearCart() {
-            if (confirm('Bạn có chắc chắn muốn xóa tất cả sản phẩm trong giỏ hàng?')) {
-                console.log('Clear cart');
+            if (confirm('Bạn có chắc chắn muốn xóa toàn bộ giỏ hàng?')) {
+                const items = document.querySelectorAll('.cart-item');
+                items.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.style.animation = 'slideOut 0.3s ease-out forwards';
+                        setTimeout(() => item.remove(), 300);
+                    }, index * 100);
+                });
+
+                setTimeout(() => {
+                    checkEmptyCart();
+                    showNotification('Đã xóa toàn bộ giỏ hàng', 'success');
+                }, items.length * 100 + 300);
             }
         }
+
+        function selectVoucher(code) {
+            document.querySelector('.voucher-code').value = code;
+            applyVoucher();
+        }
+
+        function applyVoucher() {
+            const code = document.querySelector('.voucher-code').value.trim();
+            if (code) {
+                showNotification(`Áp dụng mã giảm giá "${code}" thành công!`, 'success');
+                updateCartSummary();
+            } else {
+                showNotification('Vui lòng nhập mã giảm giá!', 'error');
+            }
+        }
+
+        function checkout() {
+            const items = document.querySelectorAll('.cart-item');
+            if (items.length === 0) {
+                showNotification('Giỏ hàng của bạn đang trống!', 'error');
+                return;
+            }
+
+            showNotification('Đang chuyển đến trang thanh toán...', 'info');
+            setTimeout(() => {
+                window.location.href = '/checkout';
+            }, 1500);
+        }
+
+        function addToCart(productId) {
+            showNotification('Đã thêm sản phẩm vào giỏ hàng!', 'success');
+        }
+
+        function updateCartSummary() {
+            const items = document.querySelectorAll('.cart-item');
+            let subtotal = 0;
+            let itemCount = 0;
+
+            items.forEach(item => {
+                const quantity = parseInt(item.querySelector('.quantity-input').value);
+                const priceText = item.querySelector('.current-price').textContent;
+                const price = parseInt(priceText.replace(/[^\d]/g, ''));
+                subtotal += price * quantity;
+                itemCount += quantity;
+            });
+
+            // Update item count in summary
+            document.querySelector('.summary-row:first-child span:first-child').textContent =
+                `Tạm tính (${itemCount} sản phẩm):`;
+        }
+
+        function checkEmptyCart() {
+            const cartTable = document.querySelector('.cart-table');
+            const items = document.querySelectorAll('.cart-item');
+
+            if (items.length === 0) {
+                cartTable.innerHTML = `
+                    <div style="text-align: center; padding: 3rem;">
+                        <div style="font-size: 4rem; color: var(--gray-400); margin-bottom: 1rem;">🛒</div>
+                        <h2 style="color: var(--gray-700); margin-bottom: 1rem;">Giỏ hàng của bạn đang trống</h2>
+                        <p style="color: var(--gray-500); margin-bottom: 2rem;">Hãy tiếp tục mua sắm và thêm sản phẩm vào giỏ hàng của bạn!</p>
+                        <a href="/sanpham" class="btn btn-primary btn-lg">
+                            <i class="fas fa-shopping-bag"></i>
+                            Bắt Đầu Mua Sắm
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        function formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN').format(price) + 'đ';
+        }
+
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' :
+                                  type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+
+            document.body.appendChild(notification);
+
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease-out forwards';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+
+        // Initialize cart
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartSummary();
+
+            // Add smooth animations
+            const items = document.querySelectorAll('.cart-item');
+            items.forEach((item, index) => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    item.style.transition = 'all 0.5s ease';
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
     </script>
+
+    <style>
+        @keyframes slideOut {
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-xl);
+            padding: var(--spacing-md);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            animation: slideInRight 0.3s ease-out;
+        }
+
+        .notification.success {
+            border-left: 4px solid #10b981;
+            color: #059669;
+        }
+
+        .notification.error {
+            border-left: 4px solid #dc2626;
+            color: #dc2626;
+        }
+
+        .notification.info {
+            border-left: 4px solid #3b82f6;
+            color: #2563eb;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+    </style>
 </body>
 </html>

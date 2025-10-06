@@ -4,9 +4,20 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 /**
- * ENTITY TAI KHOAN
+ * ENTITY TAI KHOAN - ASM Web Bán Hàng Tết
  * Người 1 - Database Design & Backend Core
- * Mapping với bảng TaiKhoan trong database WebBanHangTet
+ *
+ * THEO FILE SQL: asmfpt5 22.23.14.sql
+ * CREATE TABLE TaiKhoan (
+ *     MaTK INT PRIMARY KEY IDENTITY(1,1),
+ *     HoTen NVARCHAR(100) NOT NULL,
+ *     Email NVARCHAR(100) UNIQUE NOT NULL,
+ *     MatKhau NVARCHAR(255) NOT NULL,
+ *     SoDienThoai NVARCHAR(20) NULL,
+ *     MaVT INT NOT NULL,
+ *     TrangThai BIT DEFAULT 1,
+ *     NgayTao DATETIME DEFAULT GETDATE()
+ * )
  */
 @Entity
 @Table(name = "TaiKhoan")
@@ -29,7 +40,7 @@ public class TaiKhoan {
     @Column(name = "SoDienThoai", length = 20)
     private String soDienThoai;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "MaVT", nullable = false)
     private VaiTro vaiTro;
 
@@ -50,67 +61,38 @@ public class TaiKhoan {
     }
 
     // Getters and Setters
-    public Integer getMaTK() {
-        return maTK;
-    }
+    public Integer getMaTK() { return maTK; }
+    public void setMaTK(Integer maTK) { this.maTK = maTK; }
 
-    public void setMaTK(Integer maTK) {
-        this.maTK = maTK;
-    }
+    public String getHoTen() { return hoTen; }
+    public void setHoTen(String hoTen) { this.hoTen = hoTen; }
 
-    public String getHoTen() {
-        return hoTen;
-    }
+    public String getEmail() { return email; }
+    public void setEmail(String email) { this.email = email; }
 
-    public void setHoTen(String hoTen) {
-        this.hoTen = hoTen;
-    }
+    public String getMatKhau() { return matKhau; }
+    public void setMatKhau(String matKhau) { this.matKhau = matKhau; }
 
-    public String getEmail() {
-        return email;
-    }
+    public String getSoDienThoai() { return soDienThoai; }
+    public void setSoDienThoai(String soDienThoai) { this.soDienThoai = soDienThoai; }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    public VaiTro getVaiTro() { return vaiTro; }
+    public void setVaiTro(VaiTro vaiTro) { this.vaiTro = vaiTro; }
 
-    public String getMatKhau() {
-        return matKhau;
-    }
+    public Boolean getTrangThai() { return trangThai; }
+    public void setTrangThai(Boolean trangThai) { this.trangThai = trangThai; }
 
-    public void setMatKhau(String matKhau) {
-        this.matKhau = matKhau;
-    }
+    public LocalDateTime getNgayTao() { return ngayTao; }
+    public void setNgayTao(LocalDateTime ngayTao) { this.ngayTao = ngayTao; }
 
-    public String getSoDienThoai() {
-        return soDienThoai;
-    }
-
-    public void setSoDienThoai(String soDienThoai) {
-        this.soDienThoai = soDienThoai;
-    }
-
-    public VaiTro getVaiTro() {
-        return vaiTro;
-    }
-
-    public void setVaiTro(VaiTro vaiTro) {
-        this.vaiTro = vaiTro;
-    }
-
-    public Boolean getTrangThai() {
-        return trangThai;
-    }
-
-    public void setTrangThai(Boolean trangThai) {
-        this.trangThai = trangThai;
-    }
-
-    public LocalDateTime getNgayTao() {
-        return ngayTao;
-    }
-
-    public void setNgayTao(LocalDateTime ngayTao) {
-        this.ngayTao = ngayTao;
+    @Override
+    public String toString() {
+        return "TaiKhoan{" +
+                "maTK=" + maTK +
+                ", hoTen='" + hoTen + '\'' +
+                ", email='" + email + '\'' +
+                ", vaiTro=" + (vaiTro != null ? vaiTro.getTenVT() : null) +
+                ", trangThai=" + trangThai +
+                '}';
     }
 }

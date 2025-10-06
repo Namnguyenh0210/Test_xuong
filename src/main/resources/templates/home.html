@@ -15,7 +15,7 @@
         <div class="hero-content">
             <div class="container">
                 <div class="hero-text fade-in">
-                    <h1>🎊 Chào Xuân <span th:text="${tetYear}"></span> 🎊</h1>
+                    <h1>🎊 Chào Xuân <span th:text="${tetYear}">2026</span> 🎊</h1>
                     <p class="hero-subtitle">Mua sắm quà Tết truyền thống với ưu đãi đặc biệt</p>
                     <div class="hero-buttons">
                         <a href="/sanpham" class="btn btn-primary btn-lg">
@@ -41,7 +41,7 @@
             <h2 class="section-title text-center">Tại Sao Chọn Chúng Tôi?</h2>
             <div class="row">
                 <div class="col-4">
-                    <div class="feature-card slide-up">
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-gift"></i>
                         </div>
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="feature-card slide-up">
+                    <div class="feature-card">
                         <div class="feature-icon">
                             <i class="fas fa-shipping-fast"></i>
                         </div>
@@ -59,9 +59,9 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <div class="feature-card slide-up">
+                    <div class="feature-card">
                         <div class="feature-icon">
-                            <i class="fas fa-star"></i>
+                            <i class="fas fa-medal"></i>
                         </div>
                         <h3>Chất Lượng Cao</h3>
                         <p>Cam kết 100% chất lượng, hoàn tiền nếu không hài lòng</p>
@@ -71,7 +71,7 @@
         </div>
     </section>
 
-    <!-- Featured Products -->
+    <!-- Featured Products Section -->
     <section class="featured-products">
         <div class="container">
             <h2 class="section-title text-center">Sản Phẩm Nổi Bật</h2>
@@ -127,8 +127,7 @@
                             <div class="product-badge new">New</div>
                         </div>
                         <div class="product-info">
-                            <!-- TODO (Người 3): Nếu sản phẩm phụ thuộc năm, giữ dynamic tetYear -->
-                            <h4>Bao Lì Xì Vàng <span th:text="${tetYear}">2025</span></h4>
+                            <h4>Bao Lì Xì Vàng <span th:text="${tetYear}">2026</span></h4>
                             <p class="product-price">30.000đ</p>
                             <button class="btn btn-primary w-full">
                                 <i class="fas fa-cart-plus"></i> Thêm Vào Giỏ
@@ -145,7 +144,7 @@
         </div>
     </section>
 
-    <!-- Testimonials -->
+    <!-- Testimonials Section -->
     <section class="testimonials">
         <div class="container">
             <h2 class="section-title text-center">Khách Hàng Nói Gì?</h2>
@@ -190,7 +189,7 @@
         </div>
     </section>
 
-    <!-- Newsletter -->
+    <!-- Newsletter Section -->
     <section class="newsletter">
         <div class="container">
             <div class="newsletter-content">
@@ -211,7 +210,7 @@
 
     <!-- Scripts -->
     <th:block th:replace="~{fragments/layout :: scripts}"></th:block>
-    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/home.js?v=20251003}"></script>
 </body>
 
 </html>

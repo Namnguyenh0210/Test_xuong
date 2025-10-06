@@ -9,25 +9,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 /**
- * SECURITY CONFIG (ĐƠN GIẢN CHO ASM)
- * Giữ mức tối thiểu: phân quyền URL cơ bản + form login + logout.
+ * SECURITY CONFIG - ASM WEB BÁN HÀNG TẾT
+ * Đơn giản hóa cho môi trường học tập, vừa đủ tính năng
  *
- * ĐÃ LƯỢC BỚT cho dễ học:
- *  - Bỏ DaoAuthenticationProvider bean (Spring Boot tự tạo khi có UserDetailsService + PasswordEncoder)
- *  - Bỏ AuthenticationManager bean (không cần nếu dùng formLogin mặc định)
- *  - Giữ PasswordEncoder NoOp để dùng mật khẩu plain text đúng yêu cầu bài.
- *
- * TODO (Người 2):
- *  1. Khi muốn phân quyền thật: thay .requestMatchers("/admin/**").authenticated() => hasRole("ADMIN")
- *  2. Bật remember-me nếu cần (đã đặt TODO bên dưới)
- *  3. Khi chuyển sang mã hoá: đổi passwordEncoder() sang BCryptPasswordEncoder()
- *  4. Thêm access denied page: .exceptionHandling(e -> e.accessDeniedPage("/403"))
+ * ĐĂNG NHẬP BẰNG EMAIL + MẬT KHẨU PLAIN TEXT
  */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // Plain text password encoder (tối giản cho ASM) - KHÔNG dùng production
+    // Plain text password cho ASM (không mã hóa)
     @Bean
     public PasswordEncoder passwordEncoder() {
         return NoOpPasswordEncoder.getInstance();
@@ -37,30 +28,45 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/home", "/sanpham", "/sanpham/**", "/gioithieu", "/kienthuc", "/lienhe", "/login", "/register").permitAll()
-                .requestMatchers("/css/**", "/js/**", "/img/**", "/static/**", "/webjars/**").permitAll()
-                // TODO (Người 2): Đổi authenticated() thành hasRole("ADMIN") khi role mapping hoạt động
-                .requestMatchers("/admin/**").authenticated()
-                .requestMatchers("/profile", "/profile/**", "/giohang", "/checkout").authenticated()
-                .anyRequest().permitAll()
+                // Public pages - ai cũng vào được
+                .requestMatchers("/", "/home", "/sanpham", "/sanpham/**", "/gioithieu", "/kienthuc", "/lienhe").permitAll()
+                .requestMatchers("/giohang", "/giohang/**").permitAll()  // Cho phép truy cập giỏ hàng không cần đăng nhập
+                .requestMatchers("/login", "/register").permitAll()
+                .requestMatchers("/css/**", "/js/**", "/img/**", "/static/**").permitAll()
+                .requestMatchers("/api/public/**").permitAll()
+
+                // Admin pages - chỉ ADMIN
+                .requestMatchers("/admin/**", "/api/admin/**").hasRole("ADMIN")
+
+                // User pages - phải đăng nhập (bỏ giohang ra khỏi đây)
+                .requestMatchers("/profile/**", "/checkout/**", "/orders/**").hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/api/user/**").hasAnyRole("USER", "ADMIN")
+
+                // Còn lại phải đăng nhập
+                .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
                 .defaultSuccessUrl("/", true)
-                .failureUrl("/login?error")
+                .failureUrl("/login?error=true")
+                .usernameParameter("email") // ĐĂNG NHẬP BẰNG EMAIL
+                .passwordParameter("password")
                 .permitAll()
             )
             .logout(logout -> logout
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
+                .logoutSuccessUrl("/?logout=success")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
                 .permitAll()
             )
-            // TODO (Người 2): Bật CSRF khi submit form thật (để yên disable cho dev nhanh)
+            // Tắt CSRF cho đơn giản (chỉ dùng trong ASM)
             .csrf(csrf -> csrf.disable())
-            // TODO (Người 2): remember-me (khi làm xong login cơ bản)
-            // .rememberMe(rm -> rm.tokenValiditySeconds(7 * 24 * 3600))
-            .headers(h -> h.frameOptions().sameOrigin());
+            // Exception handling đơn giản
+            .exceptionHandling(ex -> ex
+                .accessDeniedPage("/403")
+            );
 
         return http.build();
     }
