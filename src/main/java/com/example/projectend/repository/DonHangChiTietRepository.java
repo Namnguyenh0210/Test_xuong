@@ -1,13 +1,8 @@
 package com.example.projectend.repository;
 
 import com.example.projectend.entity.DonHangChiTiet;
-import com.example.projectend.entity.DonHang;
-import com.example.projectend.entity.SanPham;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * DON HANG CHI TIET REPOSITORY

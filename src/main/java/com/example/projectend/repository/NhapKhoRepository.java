@@ -1,12 +1,8 @@
 package com.example.projectend.repository;
 
 import com.example.projectend.entity.NhapKho;
-import com.example.projectend.entity.SanPham;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * NHAP KHO REPOSITORY

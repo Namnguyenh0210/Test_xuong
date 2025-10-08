@@ -1,7 +1,10 @@
 package com.example.projectend.controller;
 
-import com.example.projectend.entity.*;
-import com.example.projectend.service.*;
+import com.example.projectend.entity.BaiViet;
+import com.example.projectend.entity.TaiKhoan;
+import com.example.projectend.service.BaiVietService;
+import com.example.projectend.service.DanhGiaService;
+import com.example.projectend.service.TaiKhoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -12,9 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import jakarta.servlet.http.HttpServletResponse;
 import java.security.Principal;
-import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -22,11 +23,11 @@ import java.util.Optional;
  * Người 1 - Database Design & Backend Core ✅ ĐÃ HOÀN THÀNH (Cấu trúc cơ bản)
  * Người 2 - Authentication & Security ✅ ĐÃ HOÀN THÀNH (Security config)
  * Người 5 - Admin Dashboard & Reports 🔄 CẦN HOÀN THIỆN
- *
+ * <p>
  * ========================================
  * TODO NGƯỜI 5 - DANH SÁCH CHI TIẾT:
  * ========================================
- *
+ * <p>
  * BƯỚC 1: Tạo các service còn thiếu (SanPhamService, DonHangService, v.v.)
  * BƯỚC 2: Hoàn thiện Dashboard chính với thống kê
  * BƯỚC 3: Hoàn thiện CRUD quản lý đơn hàng với filter trạng thái
@@ -125,8 +126,8 @@ public class DashboardController {
 
     @PostMapping("/baiviet/save")
     public String luuBaiViet(@ModelAttribute BaiViet baiViet,
-                            Principal principal,
-                            RedirectAttributes redirectAttributes) {
+                             Principal principal,
+                             RedirectAttributes redirectAttributes) {
         try {
             // Lấy tài khoản hiện tại
             TaiKhoan taiKhoan = taiKhoanService.findByEmail(principal.getName());
@@ -170,8 +171,8 @@ public class DashboardController {
     // ========== QUẢN LÝ ĐÁNH GIÁ (ĐÃ HOÀN THÀNH) ==========
     @GetMapping("/danhgia")
     public String quanLyDanhGia(@RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "10") int size,
-                               Model model) {
+                                @RequestParam(defaultValue = "10") int size,
+                                Model model) {
         // TODO NGƯỜI 5: Implement pagination for all reviews
         model.addAttribute("currentPage", "danhgia");
         model.addAttribute("pageTitle", "Quản lý đánh giá");

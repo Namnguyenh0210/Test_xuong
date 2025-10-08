@@ -14,16 +14,17 @@ import java.util.Map;
  * GIO HANG CONTROLLER - Quản lý giỏ hàng
  * Người 1 - Database Design & Backend Core ✅ ĐÃ HOÀN THÀNH (Cấu trúc cơ bản)
  * Người 3 - Frontend & Customer Website 🔄 CẦN HOÀN THIỆN
- *
+ * <p>
  * ========================================
  * TODO NGƯỜI 3 - DANH SÁCH CHI TIẾT:
  * ========================================
- *
+ * <p>
  * BƯỚC 1: Inject Services cần thiết
+ *
  * @Autowired private GioHangService gioHangService;
  * @Autowired private SanPhamService sanPhamService;
  * @Autowired private TaiKhoanService taiKhoanService;
- *
+ * <p>
  * BƯỚC 2: Hoàn thiện method gioHang() - hiển thị giỏ hàng
  * BƯỚC 3: Tạo AJAX endpoints cho add/update/remove
  * BƯỚC 4: Cập nhật template giohang.html với JavaScript

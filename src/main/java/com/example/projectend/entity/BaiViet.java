@@ -1,6 +1,7 @@
 package com.example.projectend.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 /**
@@ -36,7 +37,8 @@ public class BaiViet {
     private String trangThai = "Hiển thị";
 
     // Constructors
-    public BaiViet() {}
+    public BaiViet() {
+    }
 
     public BaiViet(TaiKhoan taiKhoan, String tieuDe, String noiDung, String hinhAnh) {
         this.taiKhoan = taiKhoan;

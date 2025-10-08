@@ -1,6 +1,7 @@
 package com.example.projectend.controller;
 
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * API CONTROLLER - ASM WEB BÁN HÀNG TẾT

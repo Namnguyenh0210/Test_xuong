@@ -29,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         // Tìm user theo email trong database
         TaiKhoan taiKhoan = taiKhoanRepository.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản với email: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản với email: " + email));
 
         // Kiểm tra tài khoản có bị vô hiệu hóa không
         if (!taiKhoan.getTrangThai()) {
@@ -43,14 +43,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
         // Return Spring Security User object
         return User.builder()
-            .username(taiKhoan.getEmail())
-            .password(taiKhoan.getMatKhau())
-            .authorities(authorities)
-            .accountExpired(false)
-            .accountLocked(false)
-            .credentialsExpired(false)
-            .disabled(!taiKhoan.getTrangThai())
-            .build();
+                .username(taiKhoan.getEmail())
+                .password(taiKhoan.getMatKhau())
+                .authorities(authorities)
+                .accountExpired(false)
+                .accountLocked(false)
+                .credentialsExpired(false)
+                .disabled(!taiKhoan.getTrangThai())
+                .build();
     }
 
     /**
@@ -59,6 +59,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
      */
     public TaiKhoan getTaiKhoanByEmail(String email) {
         return taiKhoanRepository.findByEmail(email)
-            .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản: " + email));
+                .orElseThrow(() -> new UsernameNotFoundException("Không tìm thấy tài khoản: " + email));
     }
 }

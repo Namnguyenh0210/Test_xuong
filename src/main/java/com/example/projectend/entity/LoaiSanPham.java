@@ -20,7 +20,8 @@ public class LoaiSanPham {
     private String tenLoai;
 
     // Constructors
-    public LoaiSanPham() {}
+    public LoaiSanPham() {
+    }
 
     public LoaiSanPham(String tenLoai) {
         this.tenLoai = tenLoai;

@@ -1,6 +1,7 @@
 package com.example.projectend.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 /**
@@ -26,20 +27,44 @@ public class NhapKho {
     @Column(name = "NgayNhap")
     private LocalDateTime ngayNhap = LocalDateTime.now();
 
-    public NhapKho() {}
+    public NhapKho() {
+    }
 
     public NhapKho(SanPham sanPham, Integer soLuong) {
         this.sanPham = sanPham;
         this.soLuong = soLuong;
     }
 
-    public Integer getMaNK() { return maNK; }
-    public void setMaNK(Integer maNK) { this.maNK = maNK; }
-    public SanPham getSanPham() { return sanPham; }
-    public void setSanPham(SanPham sanPham) { this.sanPham = sanPham; }
-    public Integer getSoLuong() { return soLuong; }
-    public void setSoLuong(Integer soLuong) { this.soLuong = soLuong; }
-    public LocalDateTime getNgayNhap() { return ngayNhap; }
-    public void setNgayNhap(LocalDateTime ngayNhap) { this.ngayNhap = ngayNhap; }
+    public Integer getMaNK() {
+        return maNK;
+    }
+
+    public void setMaNK(Integer maNK) {
+        this.maNK = maNK;
+    }
+
+    public SanPham getSanPham() {
+        return sanPham;
+    }
+
+    public void setSanPham(SanPham sanPham) {
+        this.sanPham = sanPham;
+    }
+
+    public Integer getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(Integer soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public LocalDateTime getNgayNhap() {
+        return ngayNhap;
+    }
+
+    public void setNgayNhap(LocalDateTime ngayNhap) {
+        this.ngayNhap = ngayNhap;
+    }
 }
 

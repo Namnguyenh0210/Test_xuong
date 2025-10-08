@@ -1,9 +1,9 @@
 package com.example.projectend.service;
 
-import com.example.projectend.entity.SanPham;
 import com.example.projectend.entity.LoaiSanPham;
-import com.example.projectend.repository.SanPhamRepository;
+import com.example.projectend.entity.SanPham;
 import com.example.projectend.repository.LoaiSanPhamRepository;
+import com.example.projectend.repository.SanPhamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,11 +16,11 @@ import java.util.Optional;
 /**
  * SAN PHAM SERVICE - Xử lý logic nghiệp vụ cho sản phẩm
  * TODO NGƯỜI 3 - CẦN HOÀN THIỆN
- *
+ * <p>
  * ========================================
  * TODO NGƯỜI 3 - DANH SÁCH CHI TIẾT:
  * ========================================
- *
+ * <p>
  * BƯỚC 1: Uncomment tất cả code đã comment
  * BƯỚC 2: Implement các method tìm kiếm, lọc sản phẩm
  * BƯỚC 3: Thêm method tính toán giá, khuyến mãi
@@ -44,8 +44,8 @@ public class SanPhamService {
 
     // TODO NGƯỜI 3: Tìm kiếm sản phẩm với filter
     public Page<SanPham> findWithFilters(String search, Integer loaiId,
-                                        BigDecimal minPrice, BigDecimal maxPrice,
-                                        String sort, Pageable pageable) {
+                                         BigDecimal minPrice, BigDecimal maxPrice,
+                                         String sort, Pageable pageable) {
         // TODO: Implement logic tìm kiếm và lọc
         // if (search != null && !search.isEmpty()) {
         //     return sanPhamRepository.findByTenSPContainingIgnoreCase(search, pageable);

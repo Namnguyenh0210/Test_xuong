@@ -2,6 +2,7 @@ package com.example.projectend.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
+
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -18,17 +19,29 @@ public class GioHangId implements Serializable {
     @Column(name = "MaSP")
     private Integer sanPhamId;
 
-    public GioHangId() {}
+    public GioHangId() {
+    }
 
     public GioHangId(Integer taiKhoanId, Integer sanPhamId) {
         this.taiKhoanId = taiKhoanId;
         this.sanPhamId = sanPhamId;
     }
 
-    public Integer getTaiKhoanId() { return taiKhoanId; }
-    public void setTaiKhoanId(Integer taiKhoanId) { this.taiKhoanId = taiKhoanId; }
-    public Integer getSanPhamId() { return sanPhamId; }
-    public void setSanPhamId(Integer sanPhamId) { this.sanPhamId = sanPhamId; }
+    public Integer getTaiKhoanId() {
+        return taiKhoanId;
+    }
+
+    public void setTaiKhoanId(Integer taiKhoanId) {
+        this.taiKhoanId = taiKhoanId;
+    }
+
+    public Integer getSanPhamId() {
+        return sanPhamId;
+    }
+
+    public void setSanPhamId(Integer sanPhamId) {
+        this.sanPhamId = sanPhamId;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -8,20 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
  * HOME CONTROLLER - Trang chủ website bán đồ Tết
  * Người 1 - Database Design & Backend Core ✅ ĐÃ HOÀN THÀNH (Cấu trúc cơ bản)
  * Người 3 - Frontend & Customer Website 🔄 CẦN HOÀN THIỆN
- *
+ * <p>
  * ========================================
  * TODO NGƯỜI 3 - DANH SÁCH CHI TIẾT:
  * ========================================
- *
+ * <p>
  * BƯỚC 1: Inject Services (sau khi đã tạo)
+ *
  * @Autowired private SanPhamService sanPhamService;
  * @Autowired private BaiVietService baiVietService;
- *
+ * <p>
  * BƯỚC 2: Trong method home() - thêm logic:
  * - Lấy 4 sản phẩm nổi bật: model.addAttribute("featuredProducts", sanPhamService.getFeaturedProducts(4));
  * - Lấy 3 bài viết mới nhất: model.addAttribute("featuredPosts", baiVietService.getFeaturedPosts(3));
  * - Lấy danh mục sản phẩm: model.addAttribute("categories", sanPhamService.getAllCategories());
- *
+ * <p>
  * BƯỚC 3: Cập nhật home.html template:
  * - Thêm slider banner Tết 2025
  * - Grid hiển thị 4 sản phẩm nổi bật

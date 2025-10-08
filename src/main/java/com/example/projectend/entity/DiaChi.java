@@ -26,7 +26,8 @@ public class DiaChi {
     @Column(name = "MacDinh")
     private Boolean macDinh = false;
 
-    public DiaChi() {}
+    public DiaChi() {
+    }
 
     public DiaChi(TaiKhoan taiKhoan, String diaChiChiTiet, Boolean macDinh) {
         this.taiKhoan = taiKhoan;
@@ -34,16 +35,36 @@ public class DiaChi {
         this.macDinh = macDinh;
     }
 
-    public Integer getMaDC() { return maDC; }
-    public void setMaDC(Integer maDC) { this.maDC = maDC; }
+    public Integer getMaDC() {
+        return maDC;
+    }
 
-    public TaiKhoan getTaiKhoan() { return taiKhoan; }
-    public void setTaiKhoan(TaiKhoan taiKhoan) { this.taiKhoan = taiKhoan; }
+    public void setMaDC(Integer maDC) {
+        this.maDC = maDC;
+    }
 
-    public String getDiaChiChiTiet() { return diaChiChiTiet; }
-    public void setDiaChiChiTiet(String diaChiChiTiet) { this.diaChiChiTiet = diaChiChiTiet; }
+    public TaiKhoan getTaiKhoan() {
+        return taiKhoan;
+    }
 
-    public Boolean getMacDinh() { return macDinh; }
-    public void setMacDinh(Boolean macDinh) { this.macDinh = macDinh; }
+    public void setTaiKhoan(TaiKhoan taiKhoan) {
+        this.taiKhoan = taiKhoan;
+    }
+
+    public String getDiaChiChiTiet() {
+        return diaChiChiTiet;
+    }
+
+    public void setDiaChiChiTiet(String diaChiChiTiet) {
+        this.diaChiChiTiet = diaChiChiTiet;
+    }
+
+    public Boolean getMacDinh() {
+        return macDinh;
+    }
+
+    public void setMacDinh(Boolean macDinh) {
+        this.macDinh = macDinh;
+    }
 }
 

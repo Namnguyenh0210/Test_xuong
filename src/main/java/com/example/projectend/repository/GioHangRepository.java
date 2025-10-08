@@ -1,11 +1,9 @@
 package com.example.projectend.repository;
 
-import com.example.projectend.entity.*;
+import com.example.projectend.entity.GioHang;
+import com.example.projectend.entity.GioHangId;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
-import java.util.Optional;
 
 /**
  * GIO HANG REPOSITORY

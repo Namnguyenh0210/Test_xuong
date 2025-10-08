@@ -109,9 +109,17 @@
     text-transform: uppercase;
 }
 
-.product-col { justify-self: start; }
-.price-col, .quantity-col, .total-col { justify-self: center; }
-.action-col { justify-self: end; }
+.product-col {
+    justify-self: start;
+}
+
+.price-col, .quantity-col, .total-col {
+    justify-self: center;
+}
+
+.action-col {
+    justify-self: end;
+}
 
 /* Cart Item */
 .cart-item {

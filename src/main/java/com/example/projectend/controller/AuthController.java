@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 /**
  * AUTH CONTROLLER - ASM WEB BÁN HÀNG TẾT
  * Người 2 - Authentication & Authorization ✅ HOÀN THÀNH
- *
+ * <p>
  * ĐĂNG NHẬP BẰNG EMAIL + MẬT KHẨU PLAIN TEXT
  */
 @Controller
@@ -34,8 +34,8 @@ public class AuthController {
     // ========================================
     @GetMapping("/login")
     public String loginPage(@RequestParam(value = "error", required = false) String error,
-                           @RequestParam(value = "logout", required = false) String logout,
-                           Model model) {
+                            @RequestParam(value = "logout", required = false) String logout,
+                            Model model) {
         if (error != null) {
             model.addAttribute("errorMessage", "Email hoặc mật khẩu không đúng!");
         }
@@ -56,11 +56,11 @@ public class AuthController {
 
     @PostMapping("/register")
     public String registerSubmit(@RequestParam String hoTen,
-                                @RequestParam String email,
-                                @RequestParam String password,
-                                @RequestParam String confirmPassword,
-                                @RequestParam(required = false) String soDienThoai,
-                                RedirectAttributes redirectAttributes) {
+                                 @RequestParam String email,
+                                 @RequestParam String password,
+                                 @RequestParam String confirmPassword,
+                                 @RequestParam(required = false) String soDienThoai,
+                                 RedirectAttributes redirectAttributes) {
 
         // Validation cơ bản
         if (hoTen == null || hoTen.trim().isEmpty()) {
@@ -110,12 +110,12 @@ public class AuthController {
             taiKhoanRepository.save(taiKhoanMoi);
 
             redirectAttributes.addFlashAttribute("successMessage",
-                "Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.");
+                    "Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.");
             return "redirect:/login";
 
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("errorMessage",
-                "Có lỗi xảy ra khi đăng ký. Vui lòng thử lại!");
+                    "Có lỗi xảy ra khi đăng ký. Vui lòng thử lại!");
             return "redirect:/register";
         }
     }

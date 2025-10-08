@@ -1,6 +1,7 @@
 package com.example.projectend.entity;
 
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 
 /**
@@ -30,7 +31,8 @@ public class DonHangChiTiet {
     @Column(name = "DonGia", nullable = false, precision = 18, scale = 2)
     private BigDecimal donGia;
 
-    public DonHangChiTiet() {}
+    public DonHangChiTiet() {
+    }
 
     public DonHangChiTiet(DonHang donHang, SanPham sanPham, Integer soLuong, BigDecimal donGia) {
         this.donHang = donHang;
@@ -39,16 +41,45 @@ public class DonHangChiTiet {
         this.donGia = donGia;
     }
 
-    public Integer getMaDHCT() { return maDHCT; }
-    public void setMaDHCT(Integer maDHCT) { this.maDHCT = maDHCT; }
-    public DonHang getDonHang() { return donHang; }
-    public void setDonHang(DonHang donHang) { this.donHang = donHang; }
-    public SanPham getSanPham() { return sanPham; }
-    public void setSanPham(SanPham sanPham) { this.sanPham = sanPham; }
-    public Integer getSoLuong() { return soLuong; }
-    public void setSoLuong(Integer soLuong) { this.soLuong = soLuong; }
-    public BigDecimal getDonGia() { return donGia; }
-    public void setDonGia(BigDecimal donGia) { this.donGia = donGia; }
+    public Integer getMaDHCT() {
+        return maDHCT;
+    }
+
+    public void setMaDHCT(Integer maDHCT) {
+        this.maDHCT = maDHCT;
+    }
+
+    public DonHang getDonHang() {
+        return donHang;
+    }
+
+    public void setDonHang(DonHang donHang) {
+        this.donHang = donHang;
+    }
+
+    public SanPham getSanPham() {
+        return sanPham;
+    }
+
+    public void setSanPham(SanPham sanPham) {
+        this.sanPham = sanPham;
+    }
+
+    public Integer getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(Integer soLuong) {
+        this.soLuong = soLuong;
+    }
+
+    public BigDecimal getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(BigDecimal donGia) {
+        this.donGia = donGia;
+    }
 
     // Tính thành tiền (soLuong * donGia)
     public BigDecimal getThanhTien() {

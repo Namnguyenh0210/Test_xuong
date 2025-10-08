@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
@@ -14,18 +13,19 @@ import java.util.Map;
 /**
  * CHECKOUT CONTROLLER - Xử lý đặt hàng và thanh toán
  * Người 4 - Order Management & Checkout 🔄 CẦN HOÀN THIỆN
- *
+ * <p>
  * ========================================
  * TODO NGƯỜI 4 - DANH SÁCH CHI TIẾT:
  * ========================================
- *
+ * <p>
  * BƯỚC 1: Inject Services cần thiết
+ *
  * @Autowired private GioHangService gioHangService;
  * @Autowired private DonHangService donHangService;
  * @Autowired private TaiKhoanService taiKhoanService;
  * @Autowired private DiaChiService diaChiService;
  * @Autowired private PhuongThucThanhToanService phuongThucThanhToanService;
- *
+ * <p>
  * BƯỚC 2: Hoàn thiện method checkout() - hiển thị trang thanh toán
  * BƯỚC 3: Hoàn thiện method processCheckout() - xử lý đặt hàng
  * BƯỚC 4: Tạo method checkoutSuccess() - trang cảm ơn

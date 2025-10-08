@@ -2,7 +2,10 @@ package com.example.projectend.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
@@ -14,16 +17,17 @@ import java.util.Map;
  * PROFILE CONTROLLER - Quản lý thông tin cá nhân và đơn hàng
  * Người 1 - Database Design & Backend Core ✅ ĐÃ HOÀN THÀNH (Cấu trúc cơ bản)
  * Người 4 - Order Management & Checkout 🔄 CẦN HOÀN THIỆN
- *
+ * <p>
  * ========================================
  * TODO NGƯỜI 4 - DANH SÁCH CHI TIẾT:
  * ========================================
- *
+ * <p>
  * BƯỚC 1: Inject Services cần thiết
+ *
  * @Autowired private TaiKhoanService taiKhoanService;
  * @Autowired private DonHangService donHangService;
  * @Autowired private DiaChiService diaChiService;
- *
+ * <p>
  * BƯỚC 2: Hoàn thiện method profile() - hiển thị thông tin & lịch sử đơn hàng
  * BƯỚC 3: Tạo method updateProfile() - cập nhật thông tin cá nhân
  * BƯỚC 4: Tạo method changePassword() - đổi mật khẩu

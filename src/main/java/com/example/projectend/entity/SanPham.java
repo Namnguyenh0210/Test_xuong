@@ -1,6 +1,7 @@
 package com.example.projectend.entity;
 
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -43,7 +44,8 @@ public class SanPham {
     private LocalDateTime ngayTao = LocalDateTime.now();
 
     // Constructors
-    public SanPham() {}
+    public SanPham() {
+    }
 
     public SanPham(String tenSP, BigDecimal gia, LoaiSanPham loaiSanPham) {
         this.tenSP = tenSP;

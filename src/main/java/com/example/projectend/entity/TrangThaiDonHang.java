@@ -18,13 +18,27 @@ public class TrangThaiDonHang {
     @Column(name = "TenTTDH", nullable = false, length = 50)
     private String tenTTDH;
 
-    public TrangThaiDonHang() {}
+    public TrangThaiDonHang() {
+    }
 
-    public TrangThaiDonHang(String tenTTDH) { this.tenTTDH = tenTTDH; }
+    public TrangThaiDonHang(String tenTTDH) {
+        this.tenTTDH = tenTTDH;
+    }
 
-    public Integer getMaTTDH() { return maTTDH; }
-    public void setMaTTDH(Integer maTTDH) { this.maTTDH = maTTDH; }
-    public String getTenTTDH() { return tenTTDH; }
-    public void setTenTTDH(String tenTTDH) { this.tenTTDH = tenTTDH; }
+    public Integer getMaTTDH() {
+        return maTTDH;
+    }
+
+    public void setMaTTDH(Integer maTTDH) {
+        this.maTTDH = maTTDH;
+    }
+
+    public String getTenTTDH() {
+        return tenTTDH;
+    }
+
+    public void setTenTTDH(String tenTTDH) {
+        this.tenTTDH = tenTTDH;
+    }
 }
 

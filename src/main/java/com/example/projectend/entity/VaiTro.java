@@ -20,7 +20,8 @@ public class VaiTro {
     private String tenVT;
 
     // Constructors
-    public VaiTro() {}
+    public VaiTro() {
+    }
 
     public VaiTro(String tenVT) {
         this.tenVT = tenVT;

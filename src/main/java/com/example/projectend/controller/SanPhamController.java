@@ -1,7 +1,5 @@
 package com.example.projectend.controller;
 
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,16 +15,17 @@ import java.util.Map;
  * SAN PHAM CONTROLLER - Hiển thị và quản lý sản phẩm
  * Người 1 - Database Design & Backend Core ✅ ĐÃ HOÀN THÀNH (Cấu trúc cơ bản)
  * Người 3 - Frontend & Customer Website 🔄 CẦN HOÀN THIỆN
- *
+ * <p>
  * ========================================
  * TODO NGƯỜI 3 - DANH SÁCH CHI TIẾT:
  * ========================================
- *
+ * <p>
  * BƯỚC 1: Inject Services cần thiết
+ *
  * @Autowired private SanPhamService sanPhamService;
  * @Autowired private LoaiSanPhamService loaiSanPhamService;
  * @Autowired private DanhGiaService danhGiaService;
- *
+ * <p>
  * BƯỚC 2: Hoàn thiện method sanPham() - danh sách sản phẩm
  * BƯỚC 3: Hoàn thiện method chiTietSanPham() - chi tiết sản phẩm
  * BƯỚC 4: Thêm method timKiemSanPham() - tìm kiếm

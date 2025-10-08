@@ -1,6 +1,7 @@
 package com.example.projectend.entity;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 /**
@@ -38,7 +39,8 @@ public class DanhGia {
     private LocalDateTime ngayDG = LocalDateTime.now();
 
     // Constructors
-    public DanhGia() {}
+    public DanhGia() {
+    }
 
     public DanhGia(TaiKhoan khachHang, SanPham sanPham, DonHang donHang, Integer soSao, String binhLuan) {
         this.khachHang = khachHang;

@@ -1,6 +1,7 @@
 package com.example.projectend.entity;
 
 import jakarta.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -48,7 +49,8 @@ public class DonHang {
     @OneToMany(mappedBy = "donHang", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DonHangChiTiet> chiTietList = new ArrayList<>();
 
-    public DonHang() {}
+    public DonHang() {
+    }
 
     public DonHang(TaiKhoan khachHang, DiaChi diaChiGiaoHang, BigDecimal tongTien) {
         this.khachHang = khachHang;
@@ -56,23 +58,76 @@ public class DonHang {
         this.tongTien = tongTien;
     }
 
-    public Integer getMaDH() { return maDH; }
-    public void setMaDH(Integer maDH) { this.maDH = maDH; }
-    public TaiKhoan getKhachHang() { return khachHang; }
-    public void setKhachHang(TaiKhoan khachHang) { this.khachHang = khachHang; }
-    public TaiKhoan getNhanVien() { return nhanVien; }
-    public void setNhanVien(TaiKhoan nhanVien) { this.nhanVien = nhanVien; }
-    public DiaChi getDiaChiGiaoHang() { return diaChiGiaoHang; }
-    public void setDiaChiGiaoHang(DiaChi diaChiGiaoHang) { this.diaChiGiaoHang = diaChiGiaoHang; }
-    public TrangThaiDonHang getTrangThaiDonHang() { return trangThaiDonHang; }
-    public void setTrangThaiDonHang(TrangThaiDonHang trangThaiDonHang) { this.trangThaiDonHang = trangThaiDonHang; }
-    public PhuongThucThanhToan getPhuongThucThanhToan() { return phuongThucThanhToan; }
-    public void setPhuongThucThanhToan(PhuongThucThanhToan phuongThucThanhToan) { this.phuongThucThanhToan = phuongThucThanhToan; }
-    public LocalDateTime getNgayDat() { return ngayDat; }
-    public void setNgayDat(LocalDateTime ngayDat) { this.ngayDat = ngayDat; }
-    public BigDecimal getTongTien() { return tongTien; }
-    public void setTongTien(BigDecimal tongTien) { this.tongTien = tongTien; }
-    public List<DonHangChiTiet> getChiTietList() { return chiTietList; }
-    public void setChiTietList(List<DonHangChiTiet> chiTietList) { this.chiTietList = chiTietList; }
+    public Integer getMaDH() {
+        return maDH;
+    }
+
+    public void setMaDH(Integer maDH) {
+        this.maDH = maDH;
+    }
+
+    public TaiKhoan getKhachHang() {
+        return khachHang;
+    }
+
+    public void setKhachHang(TaiKhoan khachHang) {
+        this.khachHang = khachHang;
+    }
+
+    public TaiKhoan getNhanVien() {
+        return nhanVien;
+    }
+
+    public void setNhanVien(TaiKhoan nhanVien) {
+        this.nhanVien = nhanVien;
+    }
+
+    public DiaChi getDiaChiGiaoHang() {
+        return diaChiGiaoHang;
+    }
+
+    public void setDiaChiGiaoHang(DiaChi diaChiGiaoHang) {
+        this.diaChiGiaoHang = diaChiGiaoHang;
+    }
+
+    public TrangThaiDonHang getTrangThaiDonHang() {
+        return trangThaiDonHang;
+    }
+
+    public void setTrangThaiDonHang(TrangThaiDonHang trangThaiDonHang) {
+        this.trangThaiDonHang = trangThaiDonHang;
+    }
+
+    public PhuongThucThanhToan getPhuongThucThanhToan() {
+        return phuongThucThanhToan;
+    }
+
+    public void setPhuongThucThanhToan(PhuongThucThanhToan phuongThucThanhToan) {
+        this.phuongThucThanhToan = phuongThucThanhToan;
+    }
+
+    public LocalDateTime getNgayDat() {
+        return ngayDat;
+    }
+
+    public void setNgayDat(LocalDateTime ngayDat) {
+        this.ngayDat = ngayDat;
+    }
+
+    public BigDecimal getTongTien() {
+        return tongTien;
+    }
+
+    public void setTongTien(BigDecimal tongTien) {
+        this.tongTien = tongTien;
+    }
+
+    public List<DonHangChiTiet> getChiTietList() {
+        return chiTietList;
+    }
+
+    public void setChiTietList(List<DonHangChiTiet> chiTietList) {
+        this.chiTietList = chiTietList;
+    }
 }
 

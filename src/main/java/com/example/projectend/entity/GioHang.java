@@ -26,7 +26,8 @@ public class GioHang {
     @Column(name = "SoLuong", nullable = false)
     private Integer soLuong;
 
-    public GioHang() {}
+    public GioHang() {
+    }
 
     public GioHang(TaiKhoan taiKhoan, SanPham sanPham, Integer soLuong) {
         this.taiKhoan = taiKhoan;
@@ -35,13 +36,36 @@ public class GioHang {
         this.id = new GioHangId(taiKhoan.getMaTK(), sanPham.getMaSP());
     }
 
-    public GioHangId getId() { return id; }
-    public void setId(GioHangId id) { this.id = id; }
-    public TaiKhoan getTaiKhoan() { return taiKhoan; }
-    public void setTaiKhoan(TaiKhoan taiKhoan) { this.taiKhoan = taiKhoan; }
-    public SanPham getSanPham() { return sanPham; }
-    public void setSanPham(SanPham sanPham) { this.sanPham = sanPham; }
-    public Integer getSoLuong() { return soLuong; }
-    public void setSoLuong(Integer soLuong) { this.soLuong = soLuong; }
+    public GioHangId getId() {
+        return id;
+    }
+
+    public void setId(GioHangId id) {
+        this.id = id;
+    }
+
+    public TaiKhoan getTaiKhoan() {
+        return taiKhoan;
+    }
+
+    public void setTaiKhoan(TaiKhoan taiKhoan) {
+        this.taiKhoan = taiKhoan;
+    }
+
+    public SanPham getSanPham() {
+        return sanPham;
+    }
+
+    public void setSanPham(SanPham sanPham) {
+        this.sanPham = sanPham;
+    }
+
+    public Integer getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(Integer soLuong) {
+        this.soLuong = soLuong;
+    }
 }
 
