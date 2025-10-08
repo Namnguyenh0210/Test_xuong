@@ -1,0 +1,31 @@
+/* Mona Introduction Section Styles */
+.mona-intro {
+    background: #fff;
+    padding: 48px 0;
+    text-align: center;
+}
+.mona-intro h2 {
+    color: #c62828;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+.mona-intro p {
+    font-style: italic;
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+.mona-intro .mona-values {
+    color: #c62828;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+.mona-intro .mona-icon {
+    margin-top: 16px;
+}
+.mona-intro .mona-icon span {
+    font-size: 2rem;
+    color: #c62828;
+}
+
